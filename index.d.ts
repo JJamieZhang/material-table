@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IconProps } from '@material-ui/core/Icon';
 
 export interface MaterialTableProps {
-  actions?: (Action | ((rowData:any) => Action)) [];
+  actions?: (Action | ((rowData: any) => Action))[];
   columns: Column[];
   components?: Components;
   icons?: Icons,
@@ -30,14 +30,14 @@ export interface Column {
   field?: string;
   filtering?: boolean;
   lookup?: object;
-  render?: (data:any) => any;
+  render?: (data: any) => any;
   sorting?: boolean;
   defaultSort?: 'asc' | 'desc';
   title: string;
   type?: 'boolean' | 'numeric' | 'date' | 'datetime' | 'time' | 'currency';
   searchable?: boolean;
-  currencySetting?:{ locale?: string,currencyCode?: string,minimumFractionDigits?:number,maximumFractionDigits?:number};
-  emptyValue?:  any | ((data: any) => any);
+  currencySetting?: { locale?: string, currencyCode?: string, minimumFractionDigits?: number, maximumFractionDigits?: number };
+  emptyValue?: any | ((data: any) => any);
 }
 
 export interface Components {
@@ -66,7 +66,7 @@ export interface Icons {
 }
 
 export interface Options {
-  actionsColumnIndex?:number;
+  actionsColumnIndex?: number;
   columnsButton?: boolean;
   emptyRowsWhenPaging?: boolean;
   exportButton?: boolean;
@@ -75,11 +75,14 @@ export interface Options {
   paging?: boolean;
   pageSize?: number;
   pageSizeOptions?: number[];
-  showEmptyDataSourceMessage?:boolean;
+  showEmptyDataSourceMessage?: boolean;
   search?: boolean;
   selection?: boolean;
   sorting?: boolean;
   toolbar?: boolean;
+  hover?: boolean;
+  altRows?: boolean;
+  onRowClick?: (event: React.MouseEvent<any>, rowData: any) => void;
 }
 
 export interface Localization {

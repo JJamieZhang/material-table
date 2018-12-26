@@ -211,7 +211,7 @@ function (_React$Component) {
 
       if (!_this.props.options.serverPaging && _this.state && _this.state.orderBy && _this.state.orderDirection) {
         var columnDef = _this.state.columns.find(function (_) {
-          return _.tableData.id === _this.state.orderBy;
+          return _.field === _this.state.orderBy;
         });
 
         renderData = renderData.sort(_this.state.orderDirection === 'desc' ? function (a, b) {

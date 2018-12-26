@@ -443,7 +443,7 @@ MaterialTable.propTypes = {
       minimumFractionDigits: PropTypes.number,
       maximumFractionDigits: PropTypes.number
     }),
-    emptyValue:PropTypes.oneOfType([PropTypes.string,PropTypes.func])
+    emptyValue: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
   })).isRequired,
   components: PropTypes.shape({
     Actions: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
@@ -484,7 +484,10 @@ MaterialTable.propTypes = {
     search: PropTypes.bool,
     selection: PropTypes.bool,
     sorting: PropTypes.bool,
-    toolbar: PropTypes.bool
+    toolbar: PropTypes.bool,
+    hover: PropTypes.bool,
+    altRows: PropTypes.bool,
+    onRowClick: PropTypes.func,
   }),
   localization: PropTypes.shape({
     pagination: PropTypes.object,

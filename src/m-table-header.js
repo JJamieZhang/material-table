@@ -17,11 +17,11 @@ class MTableHeader extends React.Component {
         >
           {(columnDef.sort !== false && columnDef.sorting !== false && this.props.sorting)
             ? <TableSortLabel
-              active={this.props.orderBy === columnDef.tableData.id}
+              active={this.props.orderBy === columnDef.field}
               direction={this.props.orderDirection || 'asc'}
               onClick={() => {
-                const orderDirection = columnDef.tableData.id !== this.props.orderBy ? 'asc' : this.props.orderDirection === 'asc' ? 'desc' : 'asc';
-                this.props.onOrderChange(columnDef.tableData.id, orderDirection);
+                const orderDirection = columnDef.field !== this.props.orderBy ? 'asc' : this.props.orderDirection === 'asc' ? 'desc' : 'asc';
+                this.props.onOrderChange(columnDef.field, orderDirection);
               }}
             >
               {columnDef.title}
@@ -102,7 +102,7 @@ MTableHeader.propTypes = {
   sorting: PropTypes.bool,
   onAllSelected: PropTypes.func,
   onOrderChange: PropTypes.func,
-  orderBy: PropTypes.number,
+  orderBy: PropTypes.string,
   orderDirection: PropTypes.string,
   actionsHeaderIndex: PropTypes.number,
   showActionsColumn: PropTypes.bool,

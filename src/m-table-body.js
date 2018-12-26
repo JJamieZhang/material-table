@@ -9,7 +9,7 @@ class MTableBody extends React.Component {
     const localization = { ...MTableBody.defaultProps.localization, ...this.props.localization };
     if (this.props.options.showEmptyDataSourceMessage && renderData.length === 0) {
       let addColumn = 0;
-      if(this.props.options.selection || (this.props.actions && this.props.actions.filter(a => !a.isFreeAction && !this.props.options.selection).length > 0)) {
+      if (this.props.options.selection || (this.props.actions && this.props.actions.filter(a => !a.isFreeAction && !this.props.options.selection).length > 0)) {
         addColumn = 1;
       }
       return (
@@ -19,7 +19,7 @@ class MTableBody extends React.Component {
           </TableCell>
         </TableRow>
       );
-    } else if(this.props.options.emptyRowsWhenPaging){
+    } else if (this.props.options.emptyRowsWhenPaging) {
       return (
         <React.Fragment>
           {[...Array(emptyRowCount)].map((r, index) => <TableRow style={{ height: 49 }} key={'empty-' + index} />)}
@@ -32,7 +32,9 @@ class MTableBody extends React.Component {
   render() {
     let renderData = this.props.renderData;
     let emptyRowCount = 0;
-    if (this.props.options.paging) {
+    if (this.props.options.serverPaging) {
+      emptyRowCount = Math.max(0, this.props.pageSize - renderData.length);
+    } else if (this.props.options.paging) {
       const startIndex = this.props.currentPage * this.props.pageSize;
       const endIndex = startIndex + this.props.pageSize;
       renderData = renderData.slice(startIndex, endIndex);
@@ -67,6 +69,7 @@ class MTableBody extends React.Component {
                 actions={this.props.actions}
                 columns={this.props.columns}
                 getFieldValue={this.props.getFieldValue}
+                onRowClick={this.props.onRowClick}
               />
             );
           })
@@ -103,7 +106,8 @@ MTableBody.propTypes = {
   selection: PropTypes.bool.isRequired,
   onFilterSelectionChanged: PropTypes.func.isRequired,
   localization: PropTypes.object,
-  onFilterChanged: PropTypes.func
+  onFilterChanged: PropTypes.func,
+  onRowClick: PropTypes.func,
 };
 
 export default MTableBody;

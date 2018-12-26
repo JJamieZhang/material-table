@@ -64,14 +64,14 @@ class MTableBodyRowClass extends React.Component {
 
     const className = classnames({
       [classes.altRows]: options.altRows !== false && this.props.index % 2 === 0,
-      [classes.pointer]: options.onRowClick
+      [classes.pointer]: this.props.onRowClick
     });
 
     return (
       <TableRow
         className={className}
         hover={options.hover}
-        onClick={$ => options.onRowClick && options.onRowClick($, this.props.data)}
+        onClick={$ => this.props.onRowClick && this.props.onRowClick($, this.props.data)}
       >
         {columns}
       </TableRow>
@@ -96,6 +96,7 @@ MTableBodyRowClass.propTypes = {
   onRowSelected: PropTypes.func,
   getFieldValue: PropTypes.func.isRequired,
   columns: PropTypes.array,
+  onRowClick: PropTypes.func,
 };
 
 export default withStyles(

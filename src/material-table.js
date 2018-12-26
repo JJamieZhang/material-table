@@ -18,11 +18,12 @@ class MaterialTable extends React.Component {
     super(props);
 
     const calculatedProps = this.getProps(props);
-    let defaultSortColumnIndex = -1;
+    let defaultSortField = -1;
     let defaultSortDirection = '';
     if (calculatedProps) {
-      defaultSortColumnIndex = calculatedProps.columns.findIndex(a => a.defaultSort);
-      defaultSortDirection = defaultSortColumnIndex > -1 ? calculatedProps.columns[defaultSortColumnIndex].defaultSort : '';
+      const defaultColumn = calculatedProps.columns.find(a => a.defaultSort);
+      defaultSortField = defaultColumn ? defaultColumn.field : undefined;
+      defaultSortDirection = defaultSortField ? calculatedProps.columns[defaultSortField].defaultSort : '';
     }
     this.state = {
       columns: [],
@@ -32,7 +33,7 @@ class MaterialTable extends React.Component {
       renderData: [],
       searchText: '',
       selectedCount: 0,
-      orderBy: defaultSortColumnIndex,
+      orderBy: defaultSortField,
       orderDirection: defaultSortDirection,
       filterSelectionChecked: false,
       ...this.getDataAndColumns(calculatedProps)
@@ -82,7 +83,7 @@ class MaterialTable extends React.Component {
     let renderData = [...data];
 
     // App filter
-    if (this.state) {
+    if (!this.props.options.serverPaging && this.state) {
       renderData = renderData.filter(row => {
         if (this.state.filterSelectionChecked) return row.tableData.checked;
         return row.tableData;
@@ -169,7 +170,7 @@ class MaterialTable extends React.Component {
     }
 
     // Apply Sorting
-    if (this.state && this.state.orderBy >= 0 && this.state.orderDirection) {
+    if (!this.props.options.serverPaging && this.state && this.state.orderBy && this.state.orderDirection) {
       const columnDef = this.state.columns.find(_ => _.tableData.id === this.state.orderBy);
       renderData = renderData.sort(
         this.state.orderDirection === 'desc'
@@ -227,25 +228,33 @@ class MaterialTable extends React.Component {
               <props.components.Pagination
                 style={{ float: 'right' }}
                 colSpan={3}
-                count={this.state.renderData.length}
-                rowsPerPage={this.state.pageSize}
+                count={this.props.options.serverPaging ? this.props.options.serverPaging.total : this.state.renderData.length}
+                rowsPerPage={this.props.options.serverPaging ? this.props.options.serverPaging.pageSize : this.state.pageSize}
                 rowsPerPageOptions={props.options.pageSizeOptions}
-                page={this.state.currentPage}
+                page={this.props.options.serverPaging ? this.props.options.serverPaging.page : this.state.currentPage}
                 onChangePage={(event, page) => {
-                  this.setState({ currentPage: page }, () => {
-                    this.setData();
+                  if (this.props.options.serverPaging) {
                     this.onChangePage(page);
-                  });
+                  } else {
+                    this.setState({ currentPage: page }, () => {
+                      this.setData();
+                      this.onChangePage(page);
+                    });
+                  }
                 }}
                 onChangeRowsPerPage={(event) => {
-                  this.setState(state => {
-                    state.pageSize = event.target.value;
-                    state.currentPage = 0;
-                    return state;
-                  }, () => {
-                    this.setData();
+                  if (this.props.options.serverPaging) {
                     this.onChangeRowsPerPage(event.target.value);
-                  });
+                  } else {
+                    this.setState(state => {
+                      state.pageSize = event.target.value;
+                      state.currentPage = 0;
+                      return state;
+                    }, () => {
+                      this.setData();
+                      this.onChangeRowsPerPage(event.target.value);
+                    });
+                  }
                 }}
                 ActionsComponent={(subProps) => <MTablePagination {...subProps} icons={props.icons} localization={localization} />}
                 labelDisplayedRows={(row) => localization.labelDisplayedRows.replace('{from}', row.from).replace('{to}', row.to).replace('{count}', row.count)}
@@ -306,10 +315,15 @@ class MaterialTable extends React.Component {
                 this.setState({ renderData: data, selectedCount }, () => this.onSelectionChange());
               }}
               onOrderChange={(orderBy, orderDirection) => {
-                this.setState({ orderBy, orderDirection, currentPage: 0 }, () => {
-                  this.setData();
+                if (this.props.options.serverPaging) {
+                  this.setState({ orderBy, orderDirection });
                   this.onOrderChange(orderBy, orderDirection);
-                });
+                } else {
+                  this.setState({ orderBy, orderDirection, currentPage: 0 }, () => {
+                    this.setData();
+                    this.onOrderChange(orderBy, orderDirection);
+                  });
+                }
               }}
               actionsHeaderIndex={props.options.actionsColumnIndex}
               sorting={props.options.sorting}
@@ -318,9 +332,9 @@ class MaterialTable extends React.Component {
               actions={props.actions}
               components={props.components}
               icons={props.icons}
-              renderData={this.state.renderData}
-              currentPage={this.state.currentPage}
-              pageSize={this.state.pageSize}
+              renderData={this.props.options.serverPaging ? this.props.data : this.state.renderData}
+              currentPage={this.props.options.serverPaging ? this.props.options.serverPaging.page : this.state.currentPage}
+              pageSize={this.props.options.serverPaging ? this.props.options.serverPaging.pageSize : this.state.pageSize}
               columns={this.state.columns}
               options={props.options}
               getFieldValue={this.getFieldValue}
@@ -330,6 +344,11 @@ class MaterialTable extends React.Component {
                 this.setState({ columns }, () => {
                   this.setData();
                 });
+                if (this.props.onFilterChanged) {
+                  const filterObj = {};
+                  columns.forEach(c => filterObj[c.field] = c.tableData.filterValue);
+                  this.props.onFilterChanged(filterObj);
+                }
               }}
               onFilterSelectionChanged={(event) => {
                 const filterSelectionChecked = event.target.checked;
@@ -347,6 +366,7 @@ class MaterialTable extends React.Component {
                 }), () => this.onSelectionChange());
                 this.setData();
               }}
+              onRowClick={this.props.onRowClick}
               localization={{ ...MaterialTable.defaultProps.localization.body, ...this.props.localization.body }}
             />
           </Table>
@@ -488,6 +508,11 @@ MaterialTable.propTypes = {
     hover: PropTypes.bool,
     altRows: PropTypes.bool,
     onRowClick: PropTypes.func,
+    serverPaging: PropTypes.shape({
+      page: PropTypes.number.isRequired,
+      total: PropTypes.number.isRequired,
+      pageSize: PropTypes.number.isRequired,
+    }),
   }),
   localization: PropTypes.shape({
     pagination: PropTypes.object,
@@ -499,6 +524,7 @@ MaterialTable.propTypes = {
   onChangeRowsPerPage: PropTypes.func,
   onChangePage: PropTypes.func,
   onOrderChange: PropTypes.func,
+  onFilterChanged: PropTypes.func,
 };
 
 export default MaterialTable;

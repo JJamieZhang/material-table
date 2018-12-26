@@ -1,19 +1,28 @@
 import * as React from 'react';
 import { IconProps } from '@material-ui/core/Icon';
+import { Fields } from 'chrome-trace-event';
 
-export interface MaterialTableProps {
-  actions?: (Action | ((rowData: any) => Action))[];
+export interface MaterialTableProps<TData = any> {
+  actions?: (Action | ((rowData: TData) => Action))[];
   columns: Column[];
   components?: Components;
   icons?: Icons,
-  data: object;
+  data: TData[];
   title: string;
   options?: Options;
   localization?: Localization;
   onSelectionChange?: (data: any[]) => void;
   onChangeRowsPerPage?: (pageSize: number) => void;
   onChangePage?: (page: number) => void;
-  onOrderChange?: (orderBy: number, orderDirection: "asc" | "desc") => void;
+  onOrderChange?: (orderBy: string, orderDirection: "asc" | "desc") => void;
+  onRowClick?: (event: React.MouseEvent<any>, rowData: TData) => void;
+  onFilterChanged?: (filterData: { [field: string]: any }) => void;
+}
+
+export interface ServerPagingInfo {
+  page: number;
+  total: number;
+  pageSize: number;
 }
 
 export interface Action {
@@ -82,7 +91,7 @@ export interface Options {
   toolbar?: boolean;
   hover?: boolean;
   altRows?: boolean;
-  onRowClick?: (event: React.MouseEvent<any>, rowData: any) => void;
+  serverPaging?: ServerPagingInfo;
 }
 
 export interface Localization {

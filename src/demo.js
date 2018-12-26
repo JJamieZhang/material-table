@@ -8,10 +8,10 @@ class App extends Component {
       <div style={{ maxWidth: '100%' }}>
         <MaterialTable
           columns={[
-            { title: 'Adı', field: 'name', filtering: false, render: (rowData) => <div>{rowData.name}</div> },
-            { title: 'Soyadı', field: 'surname', filtering: false },
+            { title: 'Adı', field: 'name', },
+            { title: 'Soyadı', field: 'surname', },
             { title: 'Doğum Yılı', field: 'birthYear', type: 'numeric' },
-            { title: 'Doğum Yeri', field: 'birthCity', lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' }, filtering: false }
+            { title: 'Doğum Yeri', field: 'birthCity', lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' } }
           ]}
           data={[
             { name: 'Nick', surname: 'Hands', birthYear: 1987, birthCity: 63 },
@@ -20,12 +20,12 @@ class App extends Component {
           ]}
           title="Demo Title"
           options={{
-            emptyRowsWhenPaging: false,
+            emptyRowsWhenPaging: true,
             exportButton: true,
-            pageSize: 100,
-            pageSizeOptions: [100, 150, 200],
+            pageSize: 5,
+            pageSizeOptions: [5, 150, 200],
             filtering: true,
-            altRows: '#f2f2f2',
+            altRows: true,
             hover: true,
           }}
         />

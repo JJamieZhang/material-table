@@ -116,6 +116,10 @@ function (_React$Component) {
           }
 
           _this.props.onFilterChanged(columnDef.tableData.id, val);
+        },
+        style: {
+          paddingTop: '4px',
+          paddingBottom: '4px'
         }
       });
     });

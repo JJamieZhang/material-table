@@ -47,7 +47,7 @@ function (_Component) {
         }, {
           title: 'Doğum Yılı',
           field: 'birthYear',
-          type: 'numeric'
+          type: 'boolean'
         }, {
           title: 'Doğum Yeri',
           field: 'birthCity',

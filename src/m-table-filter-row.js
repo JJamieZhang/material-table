@@ -26,22 +26,22 @@ const MenuProps = {
 
 class MTableFilterRow extends React.Component {
   renderLookupFilter = (columnDef) => (
-    <FormControl style={{ width: '100%' }}>
+    <FormControl style={ { width: '100%' } }>
       <Select
         multiple
-        value={columnDef.tableData.filterValue || []}
-        onChange={event => {
+        value={ columnDef.tableData.filterValue || [] }
+        onChange={ event => {
           this.props.onFilterChanged(columnDef.tableData.id, event.target.value);
-        }}
-        input={<Input id="select-multiple-checkbox" />}
-        renderValue={selecteds => selecteds.map(selected => columnDef.lookup[selected]).join(', ')}
-        MenuProps={MenuProps}
+        } }
+        input={ <Input id="select-multiple-checkbox" /> }
+        renderValue={ selecteds => selecteds.map(selected => columnDef.lookup[selected]).join(', ') }
+        MenuProps={ MenuProps }
       >
         {
           Object.keys(columnDef.lookup).map(key => (
-            <MenuItem key={key} value={key}>
-              <Checkbox checked={columnDef.tableData.filterValue && columnDef.tableData.filterValue.indexOf(key.toString()) > -1} />
-              <ListItemText primary={columnDef.lookup[key]} />
+            <MenuItem key={ key } value={ key }>
+              <Checkbox checked={ columnDef.tableData.filterValue && columnDef.tableData.filterValue.indexOf(key.toString()) > -1 } />
+              <ListItemText primary={ columnDef.lookup[key] } />
             </MenuItem>
           ))
         }
@@ -51,9 +51,9 @@ class MTableFilterRow extends React.Component {
 
   renderBooleanFilter = (columnDef) => (
     <Checkbox
-      indeterminate={columnDef.tableData.filterValue === undefined}
-      checked={columnDef.tableData.filterValue === 'checked'}
-      onChange={() => {
+      indeterminate={ columnDef.tableData.filterValue === undefined }
+      checked={ columnDef.tableData.filterValue === 'checked' }
+      onChange={ () => {
         let val;
         if (columnDef.tableData.filterValue === undefined) {
           val = 'checked';
@@ -62,29 +62,33 @@ class MTableFilterRow extends React.Component {
         }
 
         this.props.onFilterChanged(columnDef.tableData.id, val);
+      } }
+      style={ {
+        paddingTop: '4px',
+        paddingBottom: '4px'
       }}
     />
   )
 
   renderDefaultFilter = (columnDef) => {
-    const localization = {...MTableFilterRow.defaultProps.localization, ...this.props.localization};
+    const localization = { ...MTableFilterRow.defaultProps.localization, ...this.props.localization };
     return (
       <TextField
-        style={columnDef.type === 'numeric' ? {float: 'right'} : {}}
-        type={columnDef.type === 'numeric' ? 'number' : 'text'}
-        value={columnDef.tableData.filterValue || ''}
-        onChange={(event) => {
+        style={ columnDef.type === 'numeric' ? { float: 'right' } : {} }
+        type={ columnDef.type === 'numeric' ? 'number' : 'text' }
+        value={ columnDef.tableData.filterValue || '' }
+        onChange={ (event) => {
           this.props.onFilterChanged(columnDef.tableData.id, event.target.value);
-        }}
-        InputProps={{
+        } }
+        InputProps={ {
           startAdornment: (
             <InputAdornment position="start">
-              <Tooltip title={localization.filterTooltip}>
-                <this.props.icons.Filter/>
+              <Tooltip title={ localization.filterTooltip }>
+                <this.props.icons.Filter />
               </Tooltip>
             </InputAdornment>
           )
-        }}
+        } }
       />
     );
   }
@@ -96,38 +100,38 @@ class MTableFilterRow extends React.Component {
     if (columnDef.type === 'date') {
       dateInputElement = (
         <DatePicker
-          value={columnDef.tableData.filterValue || null}
-          onChange={onDateInputChange}
+          value={ columnDef.tableData.filterValue || null }
+          onChange={ onDateInputChange }
           clearable
         />
       );
     } else if (columnDef.type === 'datetime') {
       dateInputElement = (
         <DateTimePicker
-          value={columnDef.tableData.filterValue || null}
-          onChange={onDateInputChange}
+          value={ columnDef.tableData.filterValue || null }
+          onChange={ onDateInputChange }
           clearable
         />
       );
     } else if (columnDef.type === 'time') {
       dateInputElement = (
         <TimePicker
-          value={columnDef.tableData.filterValue || null}
-          onChange={onDateInputChange}
+          value={ columnDef.tableData.filterValue || null }
+          onChange={ onDateInputChange }
           clearable
         />
       );
     }
 
     return (
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        {dateInputElement}
+      <MuiPickersUtilsProvider utils={ DateFnsUtils }>
+        { dateInputElement }
       </MuiPickersUtilsProvider>
     );
   }
 
   getComponentForColumn(columnDef) {
-    if(columnDef.filtering === false) {
+    if (columnDef.filtering === false) {
       return null;
     }
 
@@ -146,15 +150,15 @@ class MTableFilterRow extends React.Component {
 
   render() {
     const columns = this.props.columns.map(columnDef => (
-      <TableCell key={columnDef.tableData.id}>
-        {this.getComponentForColumn(columnDef)}
+      <TableCell key={ columnDef.tableData.id }>
+        { this.getComponentForColumn(columnDef) }
       </TableCell>
     ));
 
     if (this.props.selection) {
       columns.splice(0, 0, (
-        <TableCell style={{ padding: '0 12px' }}>
-          <Checkbox onChange={this.props.onFilterSelectionChanged} />
+        <TableCell style={ { padding: '0 12px' } }>
+          <Checkbox onChange={ this.props.onFilterSelectionChanged } />
         </TableCell>)
       );
     }
@@ -171,8 +175,8 @@ class MTableFilterRow extends React.Component {
     }
 
     return (
-      <TableRow style={{ height: 10 }}>
-        {columns}
+      <TableRow style={ { height: 10 } }>
+        { columns }
       </TableRow>
     );
   }

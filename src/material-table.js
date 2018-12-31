@@ -223,16 +223,16 @@ class MaterialTable extends React.Component {
       const localization = { ...MaterialTable.defaultProps.localization.pagination, ...this.props.localization.pagination };
       return (
         <Table>
-          <TableFooter style={{ display: 'grid' }}>
+          <TableFooter style={ { display: 'grid' } }>
             <TableRow>
               <props.components.Pagination
-                style={{ float: 'right' }}
-                colSpan={3}
-                count={this.props.options.serverPaging ? this.props.options.serverPaging.total : this.state.renderData.length}
-                rowsPerPage={this.props.options.serverPaging ? this.props.options.serverPaging.pageSize : this.state.pageSize}
-                rowsPerPageOptions={props.options.pageSizeOptions}
-                page={this.props.options.serverPaging ? this.props.options.serverPaging.page : this.state.currentPage}
-                onChangePage={(event, page) => {
+                style={ { float: 'right' } }
+                colSpan={ 3 }
+                count={ this.props.options.serverPaging ? this.props.options.serverPaging.total : this.state.renderData.length }
+                rowsPerPage={ this.props.options.serverPaging ? this.props.options.serverPaging.pageSize : this.state.pageSize }
+                rowsPerPageOptions={ props.options.pageSizeOptions }
+                page={ this.props.options.serverPaging ? this.props.options.serverPaging.page : this.state.currentPage }
+                onChangePage={ (event, page) => {
                   if (this.props.options.serverPaging) {
                     this.onChangePage(page);
                   } else {
@@ -241,8 +241,8 @@ class MaterialTable extends React.Component {
                       this.onChangePage(page);
                     });
                   }
-                }}
-                onChangeRowsPerPage={(event) => {
+                } }
+                onChangeRowsPerPage={ (event) => {
                   if (this.props.options.serverPaging) {
                     this.onChangeRowsPerPage(event.target.value);
                   } else {
@@ -255,10 +255,10 @@ class MaterialTable extends React.Component {
                       this.onChangeRowsPerPage(event.target.value);
                     });
                   }
-                }}
-                ActionsComponent={(subProps) => <MTablePagination {...subProps} icons={props.icons} localization={localization} />}
-                labelDisplayedRows={(row) => localization.labelDisplayedRows.replace('{from}', row.from).replace('{to}', row.to).replace('{count}', row.count)}
-                labelRowsPerPage={localization.labelRowsPerPage}
+                } }
+                ActionsComponent={ (subProps) => <MTablePagination { ...subProps } icons={ props.icons } localization={ localization } /> }
+                labelDisplayedRows={ (row) => localization.labelDisplayedRows.replace('{from}', row.from).replace('{to}', row.to).replace('{count}', row.count) }
+                labelRowsPerPage={ localization.labelRowsPerPage }
               />
             </TableRow>
           </TableFooter>
@@ -276,69 +276,71 @@ class MaterialTable extends React.Component {
 
     return (
       <props.components.Container>
-        {props.options.toolbar &&
+        { props.options.toolbar &&
           <props.components.Toolbar
-            actions={props.actions}
-            components={props.components}
-            selectedRows={this.state.selectedCount > 0 ? this.state.data.filter(a => { return a.tableData.checked }) : []}
-            columns={this.state.columns}
-            columnsButton={props.options.columnsButton}
-            icons={props.icons}
-            exportButton={props.options.exportButton}
-            exportDelimiter={props.options.exportDelimiter}
-            renderData={this.state.renderData}
-            search={props.options.search}
-            searchText={this.state.searchText}
-            title={props.title}
-            onSearchChanged={searchText => this.setState({ searchText }, () => this.setData())}
-            onColumnsChanged={columns => this.setState({ columns })}
-            localization={{ ...MaterialTable.defaultProps.localization.toolbar, ...this.props.localization.toolbar }}
+            actions={ props.actions }
+            components={ props.components }
+            selectedRows={ this.state.selectedCount > 0 ? this.state.data.filter(a => { return a.tableData.checked }) : [] }
+            columns={ this.state.columns }
+            columnsButton={ props.options.columnsButton }
+            icons={ props.icons }
+            exportButton={ props.options.exportButton }
+            exportDelimiter={ props.options.exportDelimiter }
+            renderData={ this.state.renderData }
+            search={ props.options.search }
+            searchText={ this.state.searchText }
+            title={ props.title }
+            onSearchChanged={ searchText => this.setState({ searchText }, () => this.setData()) }
+            onColumnsChanged={ columns => this.setState({ columns }) }
+            localization={ { ...MaterialTable.defaultProps.localization.toolbar, ...this.props.localization.toolbar } }
           />
         }
-        <div style={{ overflowX: 'auto' }}>
+        <div style={ { overflowX: 'auto' } }>
           <Table>
             <props.components.Header
-              localization={{ ...MaterialTable.defaultProps.localization.header, ...this.props.localization.header }}
-              columns={this.state.columns}
-              hasSelection={props.options.selection}
-              selectedCount={this.state.selectedCount}
-              dataCount={this.state.data.length}
-              showActionsColumn={props.actions && props.actions.filter(a => !a.isFreeAction && !this.props.options.selection).length > 0}
-              orderBy={this.state.orderBy}
-              orderDirection={this.state.orderDirection}
-              onAllSelected={(checked) => {
+              localization={ { ...MaterialTable.defaultProps.localization.header, ...this.props.localization.header } }
+              columns={ this.state.columns }
+              hasSelection={ props.options.selection }
+              selectedCount={ this.state.selectedCount }
+              dataCount={ this.state.data.length }
+              showActionsColumn={ props.actions && props.actions.filter(a => !a.isFreeAction && !this.props.options.selection).length > 0 }
+              orderBy={ this.state.orderBy }
+              orderDirection={ this.state.orderDirection }
+              onAllSelected={ (checked) => {
                 const data = this.state.renderData.map(row => {
                   row.tableData.checked = checked;
                   return row;
                 });
                 const selectedCount = checked ? data.length : 0;
                 this.setState({ renderData: data, selectedCount }, () => this.onSelectionChange());
-              }}
-              onOrderChange={(orderBy, orderDirection) => {
+              } }
+              onOrderChange={ (orderBy, orderDirection) => {
                 if (this.props.options.serverPaging) {
                   this.setState({ orderBy, orderDirection });
-                  this.onOrderChange(orderBy, orderDirection);
+                  const column = props.columns.find(c => c.field === orderBy);
+                  const sortingId = column.sortingId || column.id || column.field;
+                  this.onOrderChange(sortingId, orderDirection);
                 } else {
                   this.setState({ orderBy, orderDirection, currentPage: 0 }, () => {
                     this.setData();
                     this.onOrderChange(orderBy, orderDirection);
                   });
                 }
-              }}
-              actionsHeaderIndex={props.options.actionsColumnIndex}
-              sorting={props.options.sorting}
+              } }
+              actionsHeaderIndex={ props.options.actionsColumnIndex }
+              sorting={ props.options.sorting }
             />
             <props.components.Body
-              actions={props.actions}
-              components={props.components}
-              icons={props.icons}
-              renderData={this.props.options.serverPaging ? this.props.data : this.state.renderData}
-              currentPage={this.props.options.serverPaging ? this.props.options.serverPaging.page : this.state.currentPage}
-              pageSize={this.props.options.serverPaging ? this.props.options.serverPaging.pageSize : this.state.pageSize}
-              columns={this.state.columns}
-              options={props.options}
-              getFieldValue={this.getFieldValue}
-              onFilterChanged={(columnId, value) => {
+              actions={ props.actions }
+              components={ props.components }
+              icons={ props.icons }
+              renderData={ this.props.options.serverPaging ? this.props.data : this.state.renderData }
+              currentPage={ this.props.options.serverPaging ? this.props.options.serverPaging.page : this.state.currentPage }
+              pageSize={ this.props.options.serverPaging ? this.props.options.serverPaging.pageSize : this.state.pageSize }
+              columns={ this.state.columns }
+              options={ props.options }
+              getFieldValue={ this.getFieldValue }
+              onFilterChanged={ (columnId, value) => {
                 const columns = this.state.columns;
                 columns[columnId].tableData.filterValue = value;
                 this.setState({ columns }, () => {
@@ -349,15 +351,15 @@ class MaterialTable extends React.Component {
                   columns.forEach(c => filterObj[c.field] = c.tableData.filterValue);
                   this.props.onFilterChanged(filterObj);
                 }
-              }}
-              onFilterSelectionChanged={(event) => {
+              } }
+              onFilterSelectionChanged={ (event) => {
                 const filterSelectionChecked = event.target.checked;
                 const columns = this.state.columns;
                 this.setState({ columns, filterSelectionChecked }, () => {
                   this.setData();
                 });
-              }}
-              onRowSelected={(event, checked) => {
+              } }
+              onRowSelected={ (event, checked) => {
                 const data = this.state.data;
                 data[event.target.value].tableData.checked = checked;
                 this.setState(state => ({
@@ -365,13 +367,13 @@ class MaterialTable extends React.Component {
                   selectedCount: state.selectedCount + (checked ? 1 : -1)
                 }), () => this.onSelectionChange());
                 this.setData();
-              }}
-              onRowClick={this.props.onRowClick}
-              localization={{ ...MaterialTable.defaultProps.localization.body, ...this.props.localization.body }}
+              } }
+              onRowClick={ this.props.onRowClick }
+              localization={ { ...MaterialTable.defaultProps.localization.body, ...this.props.localization.body } }
             />
           </Table>
         </div>
-        {this.renderFooter()}
+        { this.renderFooter() }
       </props.components.Container>
     );
   }
@@ -395,16 +397,16 @@ MaterialTable.defaultProps = {
   data: [],
   icons: {
     /* eslint-disable react/display-name */
-    Check: (props) => <Icon {...props}>check</Icon>,
-    Export: (props) => <Icon {...props}>save_alt</Icon>,
-    Filter: (props) => <Icon {...props}>filter_list</Icon>,
-    FirstPage: (props) => <Icon {...props}>first_page</Icon>,
-    LastPage: (props) => <Icon {...props}>last_page</Icon>,
-    NextPage: (props) => <Icon {...props}>chevron_right</Icon>,
-    PreviousPage: (props) => <Icon {...props}>chevron_left</Icon>,
-    Search: (props) => <Icon {...props}>search</Icon>,
-    ThirdStateCheck: (props) => <Icon {...props}>remove</Icon>,
-    ViewColumn: (props) => <Icon {...props}>view_column</Icon>
+    Check: (props) => <Icon { ...props }>check</Icon>,
+    Export: (props) => <Icon { ...props }>save_alt</Icon>,
+    Filter: (props) => <Icon { ...props }>filter_list</Icon>,
+    FirstPage: (props) => <Icon { ...props }>first_page</Icon>,
+    LastPage: (props) => <Icon { ...props }>last_page</Icon>,
+    NextPage: (props) => <Icon { ...props }>chevron_right</Icon>,
+    PreviousPage: (props) => <Icon { ...props }>chevron_left</Icon>,
+    Search: (props) => <Icon { ...props }>search</Icon>,
+    ThirdStateCheck: (props) => <Icon { ...props }>remove</Icon>,
+    ViewColumn: (props) => <Icon { ...props }>view_column</Icon>
     /* eslint-enable react/display-name */
   },
   title: 'Table Title',
@@ -446,6 +448,7 @@ MaterialTable.propTypes = {
     iconProps: PropTypes.object
   })])),
   columns: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
     cellStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
     hidden: PropTypes.bool,
     field: PropTypes.string,
@@ -453,6 +456,7 @@ MaterialTable.propTypes = {
     lookup: PropTypes.object,
     render: PropTypes.func,
     sorting: PropTypes.bool,
+    sortingId: PropTypes.string,
     defaultSort: PropTypes.oneOf(['asc', 'desc']),
     title: PropTypes.string.isRequired,
     type: PropTypes.oneOf(['boolean', 'numeric', 'date', 'datetime', 'time', 'currency']),

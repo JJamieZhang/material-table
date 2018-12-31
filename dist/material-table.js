@@ -482,7 +482,12 @@ function (_React$Component) {
               orderDirection: orderDirection
             });
 
-            _this3.onOrderChange(orderBy, orderDirection);
+            var column = props.columns.find(function (c) {
+              return c.field === orderBy;
+            });
+            var sortingId = column.sortingId || column.id || column.field;
+
+            _this3.onOrderChange(sortingId, orderDirection);
           } else {
             _this3.setState({
               orderBy: orderBy,
@@ -649,6 +654,7 @@ MaterialTable.propTypes = {
     iconProps: _propTypes.default.object
   })])),
   columns: _propTypes.default.arrayOf(_propTypes.default.shape({
+    id: _propTypes.default.string,
     cellStyle: _propTypes.default.oneOfType([_propTypes.default.object, _propTypes.default.func]),
     hidden: _propTypes.default.bool,
     field: _propTypes.default.string,
@@ -656,6 +662,7 @@ MaterialTable.propTypes = {
     lookup: _propTypes.default.object,
     render: _propTypes.default.func,
     sorting: _propTypes.default.bool,
+    sortingId: _propTypes.default.string,
     defaultSort: _propTypes.default.oneOf(['asc', 'desc']),
     title: _propTypes.default.string.isRequired,
     type: _propTypes.default.oneOf(['boolean', 'numeric', 'date', 'datetime', 'time', 'currency']),

@@ -34,6 +34,7 @@ export interface Action {
 }
 
 export interface Column {
+  id?: string;
   cellStyle?: any | ((data: any) => any);
   hidden?: boolean;
   field?: string;
@@ -41,6 +42,7 @@ export interface Column {
   lookup?: object;
   render?: (data: any) => any;
   sorting?: boolean;
+  sortingId?: string;
   defaultSort?: 'asc' | 'desc';
   title: string;
   type?: 'boolean' | 'numeric' | 'date' | 'datetime' | 'time' | 'currency';

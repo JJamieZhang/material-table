@@ -66,7 +66,7 @@ class MTableFilterRow extends React.Component {
       style={ {
         paddingTop: '4px',
         paddingBottom: '4px'
-      }}
+      } }
     />
   )
 

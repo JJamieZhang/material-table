@@ -9,6 +9,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
+
 var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
 
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
@@ -131,17 +133,17 @@ function (_React$Component) {
         }
       }, this.props.columns.map(function (col, index) {
         return React.createElement(_core.MenuItem, {
-          key: col.tableData.id
+          key: col.tableData.id,
+          onClickCapture: function onClickCapture(event) {
+            event.preventDefault();
+            col.hidden = !col.hidden;
+
+            _this3.props.onColumnsChanged((0, _toConsumableArray2.default)(_this3.props.columns));
+          }
         }, React.createElement(_core.FormControlLabel, {
           label: col.title,
           control: React.createElement(_core.Checkbox, {
-            checked: !col.hidden,
-            onChange: function onChange(event, checked) {
-              var columns = _this3.props.columns;
-              columns[index].hidden = !checked;
-
-              _this3.props.onColumnsChanged(columns);
-            }
+            checked: !col.hidden
           })
         }));
       }))), this.props.exportButton && React.createElement("span", null, React.createElement(_core.Tooltip, {

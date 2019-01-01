@@ -41,18 +41,18 @@ class MTableToolbar extends React.Component {
     if (this.props.search) {
       return (
         <TextField
-          value={this.props.searchText}
-          onChange={event => this.props.onSearchChanged(event.target.value)}
+          value={ this.props.searchText }
+          onChange={ event => this.props.onSearchChanged(event.target.value) }
           color="inherit"
-          InputProps={{
+          InputProps={ {
             startAdornment: (
               <InputAdornment position="start">
-                <Tooltip title={localization.searchTooltip}>
-                  <this.props.icons.Search color="inherit"/>
+                <Tooltip title={ localization.searchTooltip }>
+                  <this.props.icons.Search color="inherit" />
                 </Tooltip>
               </InputAdornment>
             )
-          }}
+          } }
         />
       );
     }
@@ -65,37 +65,34 @@ class MTableToolbar extends React.Component {
     const localization = { ...MTableToolbar.defaultProps.localization, ...this.props.localization };
     return (
       <div>
-        {this.renderSearch()}
-        {this.props.columnsButton &&
+        { this.renderSearch() }
+        { this.props.columnsButton &&
           <span>
-            <Tooltip title={localization.showColumnsTitle}>
+            <Tooltip title={ localization.showColumnsTitle }>
               <IconButton
                 color="inherit"
-                onClick={event => this.setState({ columnsButtonAnchorEl: event.currentTarget })}
-                aria-label={localization.showColumnsAriaLabel}>
+                onClick={ event => this.setState({ columnsButtonAnchorEl: event.currentTarget }) }
+                aria-label={ localization.showColumnsAriaLabel }>
 
-                <this.props.icons.ViewColumn/>
+                <this.props.icons.ViewColumn />
               </IconButton>
             </Tooltip>
             <Menu
-              anchorEl={this.state.columnsButtonAnchorEl}
-              open={Boolean(this.state.columnsButtonAnchorEl)}
-              onClose={() => this.setState({ columnsButtonAnchorEl: null })}>
+              anchorEl={ this.state.columnsButtonAnchorEl }
+              open={ Boolean(this.state.columnsButtonAnchorEl) }
+              onClose={ () => this.setState({ columnsButtonAnchorEl: null }) }>
               {
                 this.props.columns.map((col, index) => {
                   return (
-                    <MenuItem key={col.tableData.id}>
+                    <MenuItem key={ col.tableData.id } onClickCapture={ (event) => {
+                      event.preventDefault();
+                      col.hidden = !col.hidden;
+                      this.props.onColumnsChanged([...this.props.columns]);
+                    } }>
                       <FormControlLabel
-                        label={col.title}
+                        label={ col.title }
                         control={
-                          <Checkbox
-                            checked={!col.hidden}
-                            onChange={(event, checked) => {
-                              const columns = this.props.columns;
-                              columns[index].hidden = !checked;
-                              this.props.onColumnsChanged(columns);
-                            }
-                            } />
+                          <Checkbox checked={ !col.hidden } />
                         }
                       />
                     </MenuItem>
@@ -105,29 +102,29 @@ class MTableToolbar extends React.Component {
             </Menu>
           </span>
         }
-        {this.props.exportButton &&
+        { this.props.exportButton &&
           <span>
-            <Tooltip title={localization.exportTitle}>
+            <Tooltip title={ localization.exportTitle }>
               <IconButton
                 color="inherit"
-                onClick={event => this.setState({ exportButtonAnchorEl: event.currentTarget })}
-                aria-label={localization.exportAriaLabel}>
-                <this.props.icons.Export/>
+                onClick={ event => this.setState({ exportButtonAnchorEl: event.currentTarget }) }
+                aria-label={ localization.exportAriaLabel }>
+                <this.props.icons.Export />
               </IconButton>
             </Tooltip>
             <Menu
-              anchorEl={this.state.exportButtonAnchorEl}
-              open={Boolean(this.state.exportButtonAnchorEl)}
-              onClose={() => this.setState({ exportButtonAnchorEl: null })}
+              anchorEl={ this.state.exportButtonAnchorEl }
+              open={ Boolean(this.state.exportButtonAnchorEl) }
+              onClose={ () => this.setState({ exportButtonAnchorEl: null }) }
             >
-              <MenuItem key="export-csv" onClick={this.exportCsv}>
-                {localization.exportName}
+              <MenuItem key="export-csv" onClick={ this.exportCsv }>
+                { localization.exportName }
               </MenuItem>
             </Menu>
           </span>
 
         }
-        <this.props.components.Actions actions={this.props.actions && this.props.actions.filter(a => a.isFreeAction)} />
+        <this.props.components.Actions actions={ this.props.actions && this.props.actions.filter(a => a.isFreeAction) } />
       </div>
     );
   }
@@ -135,8 +132,8 @@ class MTableToolbar extends React.Component {
   renderSelectedActions() {
     return (
       <React.Fragment>
-        {this.renderSearch()}
-        <this.props.components.Actions actions={this.props.actions.filter(a => !a.isFreeAction)} data={this.props.selectedRows} />
+        { this.renderSearch() }
+        <this.props.components.Actions actions={ this.props.actions.filter(a => !a.isFreeAction) } data={ this.props.selectedRows } />
       </React.Fragment>
     );
   }
@@ -144,7 +141,7 @@ class MTableToolbar extends React.Component {
   renderActions() {
     return (
       <div>
-        {this.props.selectedRows && this.props.selectedRows.length > 0
+        { this.props.selectedRows && this.props.selectedRows.length > 0
           ? this.renderSelectedActions()
           : this.renderDefaultActions()
         }
@@ -157,13 +154,13 @@ class MTableToolbar extends React.Component {
     const localization = { ...MTableToolbar.defaultProps.localization, ...this.props.localization };
     const title = this.props.selectedRows && this.props.selectedRows.length > 0 ? localization.nRowsSelected.replace('{0}', this.props.selectedRows.length) : this.props.title;
     return (
-      <Toolbar className={classNames(classes.root, { [classes.highlight]: this.props.selectedRows && this.props.selectedRows.length > 0 })}>
-        <div className={classes.title}>
-          <Typography variant="h6">{title}</Typography>
+      <Toolbar className={ classNames(classes.root, { [classes.highlight]: this.props.selectedRows && this.props.selectedRows.length > 0 }) }>
+        <div className={ classes.title }>
+          <Typography variant="h6">{ title }</Typography>
         </div>
-        <div className={classes.spacer} />
-        <div className={classes.actions}>
-          {this.renderActions()}
+        <div className={ classes.spacer } />
+        <div className={ classes.actions }>
+          { this.renderActions() }
         </div>
       </Toolbar>
     );

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { IconProps } from '@material-ui/core/Icon';
-import { Fields } from 'chrome-trace-event';
 
 export interface MaterialTableProps<TData = any> {
   actions?: (Action | ((rowData: TData) => Action))[];
@@ -26,11 +25,12 @@ export interface ServerPagingInfo {
 }
 
 export interface Action {
-  icon: string | React.ReactElement<any>;
+  icon: string | React.ReactElement<any> | Element;
   isFreeAction?: boolean;
   tooltip?: string;
   onClick: (event: any, data: any) => void;
-  iconProps?: IconProps
+  iconProps?: IconProps;
+  disabled?: boolean;
 }
 
 export interface Column {

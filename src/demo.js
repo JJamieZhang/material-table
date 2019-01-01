@@ -20,6 +20,7 @@ class App extends Component {
           ]}
           title="Demo Title"
           options={{
+            columnsButton: true,
             emptyRowsWhenPaging: true,
             exportButton: true,
             pageSize: 5,

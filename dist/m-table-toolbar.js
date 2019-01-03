@@ -169,7 +169,7 @@ function (_React$Component) {
         onClick: this.exportCsv
       }, localization.exportName))), React.createElement(this.props.components.Actions, {
         actions: this.props.actions && this.props.actions.filter(function (a) {
-          return a.isFreeAction;
+          return a.type === undefined || a.type === 'free';
         })
       }));
     }
@@ -178,7 +178,7 @@ function (_React$Component) {
     value: function renderSelectedActions() {
       return React.createElement(React.Fragment, null, this.renderSearch(), React.createElement(this.props.components.Actions, {
         actions: this.props.actions.filter(function (a) {
-          return !a.isFreeAction;
+          return a.type === 'selection';
         }),
         data: this.props.selectedRows
       }));

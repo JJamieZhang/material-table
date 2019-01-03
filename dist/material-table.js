@@ -456,7 +456,7 @@ function (_React$Component) {
         selectedCount: this.state.selectedCount,
         dataCount: this.state.data.length,
         showActionsColumn: props.actions && props.actions.filter(function (a) {
-          return !a.isFreeAction && !_this3.props.options.selection;
+          return a.type === 'row';
         }).length > 0,
         orderBy: this.state.orderBy,
         orderDirection: this.state.orderDirection,
@@ -648,10 +648,11 @@ MaterialTable.defaultProps = {
 MaterialTable.propTypes = {
   actions: _propTypes.default.arrayOf(_propTypes.default.oneOfType([_propTypes.default.func, _propTypes.default.shape({
     icon: _propTypes.default.oneOfType([_propTypes.default.element, _propTypes.default.func, _propTypes.default.string]).isRequired,
-    isFreeAction: _propTypes.default.bool,
+    type: _propTypes.default.oneOf(['free', 'row', 'selection']),
     tooltip: _propTypes.default.string,
     onClick: _propTypes.default.func.isRequired,
-    iconProps: _propTypes.default.object
+    iconProps: _propTypes.default.object,
+    disabled: _propTypes.default.boolean
   })])),
   columns: _propTypes.default.arrayOf(_propTypes.default.shape({
     id: _propTypes.default.string,

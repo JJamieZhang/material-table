@@ -45,15 +45,13 @@ function (_React$Component) {
   (0, _createClass2.default)(MTableBody, [{
     key: "renderEmpty",
     value: function renderEmpty(emptyRowCount, renderData) {
-      var _this = this;
-
       var localization = (0, _objectSpread2.default)({}, MTableBody.defaultProps.localization, this.props.localization);
 
       if (this.props.options.showEmptyDataSourceMessage && renderData.length === 0) {
         var addColumn = 0;
 
         if (this.props.options.selection || this.props.actions && this.props.actions.filter(function (a) {
-          return !a.isFreeAction && !_this.props.options.selection;
+          return a.type === 'row';
         }).length > 0) {
           addColumn = 1;
         }
@@ -91,7 +89,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this = this;
 
       var renderData = this.props.renderData;
       var emptyRowCount = 0;
@@ -111,10 +109,10 @@ function (_React$Component) {
         }),
         icons: this.props.icons,
         emptyCell: this.props.options.selection || this.props.actions && this.props.actions.filter(function (a) {
-          return !a.isFreeAction && !_this2.props.options.selection;
+          return a.type === 'row';
         }).length > 0,
         hasActions: this.props.actions && this.props.actions.filter(function (a) {
-          return !a.isFreeAction && !_this2.props.options.selection;
+          return a.type === 'row';
         }).length > 0,
         actionsColumnIndex: this.props.options.actionsColumnIndex,
         onFilterChanged: this.props.onFilterChanged,
@@ -122,18 +120,18 @@ function (_React$Component) {
         onFilterSelectionChanged: this.props.onFilterSelectionChanged,
         localization: (0, _objectSpread2.default)({}, MTableBody.defaultProps.localization.filterRow, this.props.localization.filterRow)
       }), renderData.map(function (data, index) {
-        return React.createElement(_this2.props.components.Row, {
-          components: _this2.props.components,
-          icons: _this2.props.icons,
+        return React.createElement(_this.props.components.Row, {
+          components: _this.props.components,
+          icons: _this.props.icons,
           data: data,
           index: index,
           key: index,
-          options: _this2.props.options,
-          onRowSelected: _this2.props.onRowSelected,
-          actions: _this2.props.actions,
-          columns: _this2.props.columns,
-          getFieldValue: _this2.props.getFieldValue,
-          onRowClick: _this2.props.onRowClick
+          options: _this.props.options,
+          onRowSelected: _this.props.onRowSelected,
+          actions: _this.props.actions,
+          columns: _this.props.columns,
+          getFieldValue: _this.props.getFieldValue,
+          onRowClick: _this.props.onRowClick
         });
       }), this.renderEmpty(emptyRowCount, renderData));
     }

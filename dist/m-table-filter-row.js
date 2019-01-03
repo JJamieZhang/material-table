@@ -73,9 +73,7 @@ function (_React$Component) {
     _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(MTableFilterRow)).call.apply(_getPrototypeOf2, [this].concat(args)));
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "renderLookupFilter", function (columnDef) {
       return React.createElement(_core.FormControl, {
-        style: {
-          width: '100%'
-        }
+        fullWidth: true
       }, React.createElement(_core.Select, {
         multiple: true,
         value: columnDef.tableData.filterValue || [],
@@ -126,6 +124,7 @@ function (_React$Component) {
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "renderDefaultFilter", function (columnDef) {
       var localization = (0, _objectSpread2.default)({}, MTableFilterRow.defaultProps.localization, _this.props.localization);
       return React.createElement(_core.TextField, {
+        fullWidth: true,
         style: columnDef.type === 'numeric' ? {
           float: 'right'
         } : {},

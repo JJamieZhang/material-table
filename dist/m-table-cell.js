@@ -127,7 +127,8 @@ function (_React$Component) {
 
       return React.createElement(_core.TableCell, {
         style: cellStyle,
-        align: ['numeric'].indexOf(this.props.columnDef.type) !== -1 ? "right" : "left"
+        align: ['numeric'].indexOf(this.props.columnDef.type) !== -1 ? "right" : "left",
+        className: this.props.columnDef.className
       }, this.getRenderValue());
     }
   }]);
@@ -142,5 +143,6 @@ MTableCell.defaultProps = {
 MTableCell.propTypes = {
   columnDef: _propTypes.default.object.isRequired,
   value: _propTypes.default.any.isRequired,
-  rowData: _propTypes.default.object
+  rowData: _propTypes.default.object,
+  options: _propTypes.default.object.isRequired
 };

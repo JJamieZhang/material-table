@@ -303,7 +303,7 @@ class MaterialTable extends React.Component {
               hasSelection={ props.options.selection }
               selectedCount={ this.state.selectedCount }
               dataCount={ this.state.data.length }
-              showActionsColumn={ props.actions && props.actions.filter(a => !a.isFreeAction && !this.props.options.selection).length > 0 }
+              showActionsColumn={ props.actions && props.actions.filter(a => a.type === 'row').length > 0 }
               orderBy={ this.state.orderBy }
               orderDirection={ this.state.orderDirection }
               onAllSelected={ (checked) => {
@@ -442,10 +442,11 @@ MaterialTable.defaultProps = {
 MaterialTable.propTypes = {
   actions: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.shape({
     icon: PropTypes.oneOfType([PropTypes.element, PropTypes.func, PropTypes.string]).isRequired,
-    isFreeAction: PropTypes.bool,
+    type: PropTypes.oneOf(['free', 'row', 'selection']),
     tooltip: PropTypes.string,
     onClick: PropTypes.func.isRequired,
-    iconProps: PropTypes.object
+    iconProps: PropTypes.object,
+    disabled: PropTypes.boolean,
   })])),
   columns: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,

@@ -50,7 +50,8 @@ function (_React$Component) {
       }).map(function (columnDef) {
         return React.createElement(_core.TableCell, {
           key: columnDef.tableData.id,
-          align: ['numeric'].indexOf(columnDef.type) !== -1 ? "right" : "left"
+          align: ['numeric'].indexOf(columnDef.type) !== -1 ? "right" : "left",
+          className: columnDef.className
         }, columnDef.sort !== false && columnDef.sorting !== false && _this.props.sorting ? React.createElement(_core.TableSortLabel, {
           active: _this.props.orderBy === columnDef.field,
           direction: _this.props.orderDirection || 'asc',

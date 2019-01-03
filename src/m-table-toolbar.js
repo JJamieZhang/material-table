@@ -124,7 +124,7 @@ class MTableToolbar extends React.Component {
           </span>
 
         }
-        <this.props.components.Actions actions={ this.props.actions && this.props.actions.filter(a => a.isFreeAction) } />
+        <this.props.components.Actions actions={ this.props.actions && this.props.actions.filter(a => a.type === undefined || a.type === 'free') } />
       </div>
     );
   }
@@ -133,7 +133,7 @@ class MTableToolbar extends React.Component {
     return (
       <React.Fragment>
         { this.renderSearch() }
-        <this.props.components.Actions actions={ this.props.actions.filter(a => !a.isFreeAction) } data={ this.props.selectedRows } />
+        <this.props.components.Actions actions={ this.props.actions.filter(a => a.type === 'selection') } data={ this.props.selectedRows } />
       </React.Fragment>
     );
   }

@@ -14,9 +14,9 @@ export default class MTableCell extends React.Component {
     } else if (this.props.columnDef.type === 'boolean') {
       const style = { textAlign: 'center', width: '48px' };
       if (this.props.value) {
-        return <this.props.icons.Check style={style}/>;
+        return <this.props.icons.Check style={ style } />;
       } else {
-        return <this.props.icons.ThirdStateCheck style={style}/>;
+        return <this.props.icons.ThirdStateCheck style={ style } />;
       }
     } else if (this.props.columnDef.type === 'date') {
       if (this.props.value instanceof Date) {
@@ -74,10 +74,11 @@ export default class MTableCell extends React.Component {
     }
 
     return (
-      <TableCell style={cellStyle}
-        align={['numeric'].indexOf(this.props.columnDef.type) !== -1 ? "right": "left"}
+      <TableCell style={ cellStyle }
+        align={ ['numeric'].indexOf(this.props.columnDef.type) !== -1 ? "right" : "left" }
+        className={ this.props.columnDef.className }
       >
-        {this.getRenderValue()}
+        { this.getRenderValue() }
       </TableCell>
     );
   }
@@ -91,5 +92,6 @@ MTableCell.defaultProps = {
 MTableCell.propTypes = {
   columnDef: PropTypes.object.isRequired,
   value: PropTypes.any.isRequired,
-  rowData: PropTypes.object
+  rowData: PropTypes.object,
+  options: PropTypes.object.isRequired,
 };

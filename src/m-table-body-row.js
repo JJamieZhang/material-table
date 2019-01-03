@@ -13,11 +13,13 @@ class MTableBodyRowClass extends React.Component {
         const value = this.props.getFieldValue(this.props.data, columnDef);
         return (
           <this.props.components.Cell
-            icons={this.props.icons}
-            columnDef={columnDef}
-            value={value}
-            key={columnDef.tableData.id}
-            rowData={this.props.data} />
+            icons={ this.props.icons }
+            columnDef={ columnDef }
+            value={ value }
+            key={ columnDef.tableData.id }
+            rowData={ this.props.data }
+            options={ this.props.options }
+          />
         );
       });
     return mapArr;
@@ -25,9 +27,9 @@ class MTableBodyRowClass extends React.Component {
 
   renderActions() {
     return (
-      <TableCell style={{ paddingTop: 0, paddingBottom: 0 }} key="key-actions-column">
-        <div style={{ display: 'flex' }}>
-          <this.props.components.Actions data={this.props.data} actions={this.props.actions.filter(a => !a.isFreeAction && !this.props.options.selection)} />
+      <TableCell style={ { paddingTop: 0, paddingBottom: 0 } } key="key-actions-column">
+        <div style={ { display: 'flex' } }>
+          <this.props.components.Actions data={ this.props.data } actions={ this.props.actions.filter(a => a.type === 'row') } />
         </div>
       </TableCell>
     );
@@ -36,9 +38,9 @@ class MTableBodyRowClass extends React.Component {
     return (
       <TableCell padding="checkbox" key="key-selection-column">
         <Checkbox
-          checked={this.props.data.tableData.checked === true}
-          value={`${this.props.data.tableData.id}`}
-          onChange={this.props.onRowSelected}
+          checked={ this.props.data.tableData.checked === true }
+          value={ `${this.props.data.tableData.id}` }
+          onChange={ this.props.onRowSelected }
         />
       </TableCell>
     );
@@ -50,7 +52,7 @@ class MTableBodyRowClass extends React.Component {
       columns.splice(0, 0, this.renderSelectionColumn());
     }
     if (this.props.actions &&
-      this.props.actions.filter(a => !a.isFreeAction && !options.selection).length > 0) {
+      this.props.actions.filter(a => a.type === 'row').length > 0) {
       if (options.actionsColumnIndex === -1) {
         columns.push(this.renderActions());
       } else if (options.actionsColumnIndex >= 0) {
@@ -69,11 +71,11 @@ class MTableBodyRowClass extends React.Component {
 
     return (
       <TableRow
-        className={className}
-        hover={options.hover}
-        onClick={$ => this.props.onRowClick && this.props.onRowClick($, this.props.data)}
+        className={ className }
+        hover={ options.hover }
+        onClick={ $ => this.props.onRowClick && this.props.onRowClick($, this.props.data) }
       >
-        {columns}
+        { columns }
       </TableRow>
     );
   }

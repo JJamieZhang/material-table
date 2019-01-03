@@ -26,7 +26,7 @@ const MenuProps = {
 
 class MTableFilterRow extends React.Component {
   renderLookupFilter = (columnDef) => (
-    <FormControl style={ { width: '100%' } }>
+    <FormControl fullWidth>
       <Select
         multiple
         value={ columnDef.tableData.filterValue || [] }
@@ -74,6 +74,7 @@ class MTableFilterRow extends React.Component {
     const localization = { ...MTableFilterRow.defaultProps.localization, ...this.props.localization };
     return (
       <TextField
+        fullWidth
         style={ columnDef.type === 'numeric' ? { float: 'right' } : {} }
         type={ columnDef.type === 'numeric' ? 'number' : 'text' }
         value={ columnDef.tableData.filterValue || '' }

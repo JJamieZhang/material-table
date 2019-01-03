@@ -9,21 +9,21 @@ class MTableBody extends React.Component {
     const localization = { ...MTableBody.defaultProps.localization, ...this.props.localization };
     if (this.props.options.showEmptyDataSourceMessage && renderData.length === 0) {
       let addColumn = 0;
-      if (this.props.options.selection || (this.props.actions && this.props.actions.filter(a => !a.isFreeAction && !this.props.options.selection).length > 0)) {
+      if (this.props.options.selection || (this.props.actions && this.props.actions.filter(a => a.type === 'row').length > 0)) {
         addColumn = 1;
       }
       return (
-        <TableRow style={{ height: 49 * (this.props.options.paging && this.props.options.emptyRowsWhenPaging ? this.props.pageSize : 1) }} key={'empty-' + 0} >
-          <TableCell style={{ paddingTop: 0, paddingBottom: 0, textAlign: 'center' }} colSpan={this.props.columns.length + addColumn} key="empty-">
-            {localization.emptyDataSourceMessage}
+        <TableRow style={ { height: 49 * (this.props.options.paging && this.props.options.emptyRowsWhenPaging ? this.props.pageSize : 1) } } key={ 'empty-' + 0 } >
+          <TableCell style={ { paddingTop: 0, paddingBottom: 0, textAlign: 'center' } } colSpan={ this.props.columns.length + addColumn } key="empty-">
+            { localization.emptyDataSourceMessage }
           </TableCell>
         </TableRow>
       );
     } else if (this.props.options.emptyRowsWhenPaging) {
       return (
         <React.Fragment>
-          {[...Array(emptyRowCount)].map((r, index) => <TableRow style={{ height: 49 }} key={'empty-' + index} />)}
-          {emptyRowCount > 0 && <TableRow style={{ height: 1 }} key={'empty-last1'} />}
+          { [...Array(emptyRowCount)].map((r, index) => <TableRow style={ { height: 49 } } key={ 'empty-' + index } />) }
+          { emptyRowCount > 0 && <TableRow style={ { height: 1 } } key={ 'empty-last1' } /> }
         </React.Fragment>
       );
     }
@@ -42,39 +42,39 @@ class MTableBody extends React.Component {
     }
     return (
       <TableBody>
-        {this.props.options.filtering &&
+        { this.props.options.filtering &&
           <this.props.components.FilterRow
-            columns={this.props.columns.filter(columnDef => { return !columnDef.hidden })}
-            icons={this.props.icons}
-            emptyCell={this.props.options.selection || (this.props.actions && this.props.actions.filter(a => !a.isFreeAction && !this.props.options.selection).length > 0)}
-            hasActions={(this.props.actions && this.props.actions.filter(a => !a.isFreeAction && !this.props.options.selection).length > 0)}
-            actionsColumnIndex={this.props.options.actionsColumnIndex}
-            onFilterChanged={this.props.onFilterChanged}
-            selection={this.props.options.selection}
-            onFilterSelectionChanged={this.props.onFilterSelectionChanged}
-            localization={{ ...MTableBody.defaultProps.localization.filterRow, ...this.props.localization.filterRow }}
+            columns={ this.props.columns.filter(columnDef => { return !columnDef.hidden }) }
+            icons={ this.props.icons }
+            emptyCell={ this.props.options.selection || (this.props.actions && this.props.actions.filter(a => a.type === 'row').length > 0) }
+            hasActions={ (this.props.actions && this.props.actions.filter(a => a.type === 'row').length > 0) }
+            actionsColumnIndex={ this.props.options.actionsColumnIndex }
+            onFilterChanged={ this.props.onFilterChanged }
+            selection={ this.props.options.selection }
+            onFilterSelectionChanged={ this.props.onFilterSelectionChanged }
+            localization={ { ...MTableBody.defaultProps.localization.filterRow, ...this.props.localization.filterRow } }
           />
         }
         {
           renderData.map((data, index) => {
             return (
               <this.props.components.Row
-                components={this.props.components}
-                icons={this.props.icons}
-                data={data}
-                index={index}
-                key={index}
-                options={this.props.options}
-                onRowSelected={this.props.onRowSelected}
-                actions={this.props.actions}
-                columns={this.props.columns}
-                getFieldValue={this.props.getFieldValue}
-                onRowClick={this.props.onRowClick}
+                components={ this.props.components }
+                icons={ this.props.icons }
+                data={ data }
+                index={ index }
+                key={ index }
+                options={ this.props.options }
+                onRowSelected={ this.props.onRowSelected }
+                actions={ this.props.actions }
+                columns={ this.props.columns }
+                getFieldValue={ this.props.getFieldValue }
+                onRowClick={ this.props.onRowClick }
               />
             );
           })
         }
-        {this.renderEmpty(emptyRowCount, renderData)}
+        { this.renderEmpty(emptyRowCount, renderData) }
       </TableBody>
     );
   }

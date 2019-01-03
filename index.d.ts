@@ -26,7 +26,7 @@ export interface ServerPagingInfo {
 
 export interface Action {
   icon: string | React.ReactElement<any> | Element;
-  isFreeAction?: boolean;
+  type?: 'free' | 'row' | 'selection';
   tooltip?: string;
   onClick: (event: any, data: any) => void;
   iconProps?: IconProps;
@@ -49,6 +49,7 @@ export interface Column {
   searchable?: boolean;
   currencySetting?: { locale?: string, currencyCode?: string, minimumFractionDigits?: number, maximumFractionDigits?: number };
   emptyValue?: any | ((data: any) => any);
+  className?: string;
 }
 
 export interface Components {
@@ -94,6 +95,9 @@ export interface Options {
   hover?: boolean;
   altRows?: boolean;
   serverPaging?: ServerPagingInfo;
+  cellBorder?: boolean;
+  resizeColumn?: boolean;
+  cellSmallPadding?: boolean;
 }
 
 export interface Localization {

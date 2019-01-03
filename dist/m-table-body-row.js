@@ -57,7 +57,8 @@ function (_React$Component) {
           columnDef: columnDef,
           value: value,
           key: columnDef.tableData.id,
-          rowData: _this.props.data
+          rowData: _this.props.data,
+          options: _this.props.options
         });
       });
       return mapArr;
@@ -65,8 +66,6 @@ function (_React$Component) {
   }, {
     key: "renderActions",
     value: function renderActions() {
-      var _this2 = this;
-
       return React.createElement(_core.TableCell, {
         style: {
           paddingTop: 0,
@@ -80,7 +79,7 @@ function (_React$Component) {
       }, React.createElement(this.props.components.Actions, {
         data: this.props.data,
         actions: this.props.actions.filter(function (a) {
-          return !a.isFreeAction && !_this2.props.options.selection;
+          return a.type === 'row';
         })
       })));
     }
@@ -100,7 +99,7 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var _classnames,
-          _this3 = this;
+          _this2 = this;
 
       var _this$props = this.props,
           options = _this$props.options,
@@ -112,7 +111,7 @@ function (_React$Component) {
       }
 
       if (this.props.actions && this.props.actions.filter(function (a) {
-        return !a.isFreeAction && !options.selection;
+        return a.type === 'row';
       }).length > 0) {
         if (options.actionsColumnIndex === -1) {
           columns.push(this.renderActions());
@@ -132,7 +131,7 @@ function (_React$Component) {
         className: className,
         hover: options.hover,
         onClick: function onClick($) {
-          return _this3.props.onRowClick && _this3.props.onRowClick($, _this3.props.data);
+          return _this2.props.onRowClick && _this2.props.onRowClick($, _this2.props.data);
         }
       }, columns);
     }

@@ -5,21 +5,21 @@ import MaterialTable from './material-table';
 class App extends Component {
   render() {
     return (
-      <div style={{ maxWidth: '100%' }}>
+      <div style={ { maxWidth: '100%' } }>
         <MaterialTable
-          columns={[
-            { title: 'Adı', field: 'name', },
+          columns={ [
+            { title: 'Adı', field: 'name', className: 'test' },
             { title: 'Soyadı', field: 'surname', },
             { title: 'Doğum Yılı', field: 'birthYear', type: 'boolean' },
             { title: 'Doğum Yeri', field: 'birthCity', lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' } }
-          ]}
-          data={[
+          ] }
+          data={ [
             { name: 'Nick', surname: 'Hands', birthYear: 1987, birthCity: 63 },
             { name: 'Peter', surname: 'Jameskey', birthYear: 1987, birthCity: 63 },
             { name: 'Joe', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-          ]}
+          ] }
           title="Demo Title"
-          options={{
+          options={ {
             columnsButton: true,
             emptyRowsWhenPaging: true,
             exportButton: true,
@@ -27,8 +27,11 @@ class App extends Component {
             pageSizeOptions: [5, 150, 200],
             filtering: true,
             altRows: true,
+            search: false,
             hover: true,
-          }}
+            cellBorder: true,
+            selection: true,
+          } }
         />
       </div>
     );

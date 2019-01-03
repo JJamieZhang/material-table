@@ -40,7 +40,8 @@ function (_Component) {
       }, _react.default.createElement(_materialTable.default, {
         columns: [{
           title: 'Adı',
-          field: 'name'
+          field: 'name',
+          className: 'test'
         }, {
           title: 'Soyadı',
           field: 'surname'
@@ -81,7 +82,10 @@ function (_Component) {
           pageSizeOptions: [5, 150, 200],
           filtering: true,
           altRows: true,
-          hover: true
+          search: false,
+          hover: true,
+          cellBorder: true,
+          selection: true
         }
       }));
     }

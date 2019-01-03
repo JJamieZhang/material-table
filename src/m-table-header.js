@@ -3,7 +3,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import {
   TableHead, TableRow, TableCell,
-  TableSortLabel, Checkbox, withStyles
+  TableSortLabel, Checkbox, withStyles, RootRef
 } from '@material-ui/core';
 /* eslint-enable no-unused-vars */
 
@@ -12,23 +12,24 @@ class MTableHeader extends React.Component {
     const mapArr = this.props.columns.filter(columnDef => { return !columnDef.hidden })
       .map((columnDef) => (
         <TableCell
-          key={columnDef.tableData.id}
-          align={['numeric'].indexOf(columnDef.type) !== -1 ? "right" : "left"}
+          key={ columnDef.tableData.id }
+          align={ ['numeric'].indexOf(columnDef.type) !== -1 ? "right" : "left" }
+          className={ columnDef.className }
         >
-          {(columnDef.sort !== false && columnDef.sorting !== false && this.props.sorting)
+          { (columnDef.sort !== false && columnDef.sorting !== false && this.props.sorting)
             ? <TableSortLabel
-              active={this.props.orderBy === columnDef.field}
-              direction={this.props.orderDirection || 'asc'}
-              onClick={() => {
+              active={ this.props.orderBy === columnDef.field }
+              direction={ this.props.orderDirection || 'asc' }
+              onClick={ () => {
                 const orderDirection = columnDef.field !== this.props.orderBy ? 'asc' : this.props.orderDirection === 'asc' ? 'desc' : 'asc';
                 this.props.onOrderChange(columnDef.field, orderDirection);
-              }}
+              } }
             >
-              {columnDef.title}
+              { columnDef.title }
             </TableSortLabel>
             : columnDef.title
           }
-        </TableCell>
+        </TableCell >
       ));
     return mapArr;
   }
@@ -37,7 +38,7 @@ class MTableHeader extends React.Component {
     const localization = { ...MTableHeader.defaultProps.localization, ...this.props.localization };
     return (
       <TableCell key="key-actions-column">
-        <TableSortLabel>{localization.actions}</TableSortLabel>
+        <TableSortLabel>{ localization.actions }</TableSortLabel>
       </TableCell>
     );
   }
@@ -45,9 +46,9 @@ class MTableHeader extends React.Component {
     return (
       <TableCell padding="checkbox" key="key-selection-column">
         <Checkbox
-          indeterminate={this.props.selectedCount > 0 && this.props.selectedCount < this.props.dataCount}
-          checked={this.props.selectedCount === this.props.dataCount}
-          onChange={(event, checked) => this.props.onAllSelected && this.props.onAllSelected(checked)}
+          indeterminate={ this.props.selectedCount > 0 && this.props.selectedCount < this.props.dataCount }
+          checked={ this.props.selectedCount === this.props.dataCount }
+          onChange={ (event, checked) => this.props.onAllSelected && this.props.onAllSelected(checked) }
         />
       </TableCell>
     );
@@ -73,7 +74,7 @@ class MTableHeader extends React.Component {
     return (
       <TableHead>
         <TableRow>
-          {headers}
+          { headers }
         </TableRow>
       </TableHead>
     );

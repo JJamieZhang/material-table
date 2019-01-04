@@ -175,7 +175,7 @@ function (_React$Component) {
 
               if (currentHour) {
                 var selectedHour = tableData.filterValue;
-                var currentHourToCompare = formatDate(selectedHour, 'HH:mm');
+                var currentHourToCompare = moment(selectedHour).format('HH:mm');
                 return currentHour === currentHourToCompare;
               }
 

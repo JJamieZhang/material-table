@@ -16,6 +16,66 @@ class App extends Component {
           data={ [
             { name: 'Nick', surname: 'Hands', birthYear: 1987, birthCity: 63 },
             { name: 'Peter', surname: 'Jameskey', birthYear: 1987, birthCity: 63 },
+            {
+              name: 'Joe',
+              surname: 'Baran',
+              birthYear: 1987,
+              birthCity: 63
+            },
+            {
+              name: 'Joe',
+              surname: 'Baran',
+              birthYear: 1987,
+              birthCity: 63
+            },
+            {
+              name: 'Joe',
+              surname: 'Baran',
+              birthYear: 1987,
+              birthCity: 63
+            },
+            {
+              name: 'Joe',
+              surname: 'Baran',
+              birthYear: 1987,
+              birthCity: 63
+            },
+            {
+              name: 'Joe',
+              surname: 'Baran',
+              birthYear: 1987,
+              birthCity: 63
+            },
+            {
+              name: 'Joe',
+              surname: 'Baran',
+              birthYear: 1987,
+              birthCity: 63
+            },
+            {
+              name: 'Joe',
+              surname: 'Baran',
+              birthYear: 1987,
+              birthCity: 63
+            },
+            {
+              name: 'Joe',
+              surname: 'Baran',
+              birthYear: 1987,
+              birthCity: 63
+            },
+            {
+              name: 'Joe',
+              surname: 'Baran',
+              birthYear: 1987,
+              birthCity: 63
+            },
+            {
+              name: 'Joe',
+              surname: 'Baran',
+              birthYear: 1987,
+              birthCity: 63
+            },
             { name: 'Joe', surname: 'Baran', birthYear: 1987, birthCity: 63 },
           ] }
           title="Demo Title"

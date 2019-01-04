@@ -161,7 +161,10 @@ class MTableFilterRow extends React.Component {
     if (this.props.selection) {
       columns.splice(0, 0, (
         <TableCell key="key-filterRow-selection" style={ { padding: '0 12px' } }>
-          <Checkbox onChange={ this.props.onFilterSelectionChanged } />
+          {
+            !this.props.options.serverPaging
+            && <Checkbox onChange={ this.props.onFilterSelectionChanged } />
+          }
         </TableCell>)
       );
     }
@@ -203,7 +206,8 @@ MTableFilterRow.propTypes = {
   onFilterSelectionChanged: PropTypes.func.isRequired,
   actionsColumnIndex: PropTypes.number,
   hasActions: PropTypes.bool,
-  localization: PropTypes.object
+  localization: PropTypes.object,
+  options: PropTypes.object.isRequired,
 };
 
 export default MTableFilterRow;

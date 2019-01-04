@@ -53,6 +53,7 @@ class MTableBody extends React.Component {
             selection={ this.props.options.selection }
             onFilterSelectionChanged={ this.props.onFilterSelectionChanged }
             localization={ { ...MTableBody.defaultProps.localization.filterRow, ...this.props.localization.filterRow } }
+            options={ this.props.options }
           />
         }
         {

@@ -61,8 +61,7 @@ function (_React$Component) {
   (0, _inherits2.default)(MTableFilterRow, _React$Component);
 
   function MTableFilterRow() {
-    var _getPrototypeOf2,
-        _this2 = this;
+    var _getPrototypeOf2;
 
     var _this;
 
@@ -132,13 +131,6 @@ function (_React$Component) {
         value: columnDef.tableData.filterValue || '',
         onChange: function onChange(event) {
           _this.props.onFilterChanged(columnDef.tableData.id, event.target.value);
-        },
-        InputProps: {
-          startAdornment: React.createElement(_core.InputAdornment, {
-            position: "start"
-          }, React.createElement(_core.Tooltip, {
-            title: localization.filterTooltip
-          }, React.createElement(_this2.props.icons.Filter, null)))
         }
       });
     });
@@ -211,12 +203,12 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       var columns = this.props.columns.map(function (columnDef) {
         return React.createElement(_core.TableCell, {
           key: columnDef.tableData.id
-        }, _this3.getComponentForColumn(columnDef));
+        }, _this2.getComponentForColumn(columnDef));
       });
 
       if (this.props.selection) {

@@ -83,15 +83,6 @@ class MTableFilterRow extends React.Component {
         onChange={ (event) => {
           this.props.onFilterChanged(columnDef.tableData.id, event.target.value);
         } }
-        InputProps={ {
-          startAdornment: (
-            <InputAdornment position="start">
-              <Tooltip title={ localization.filterTooltip }>
-                <this.props.icons.Filter />
-              </Tooltip>
-            </InputAdornment>
-          )
-        } }
       />
     );
   }

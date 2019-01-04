@@ -118,7 +118,8 @@ function (_React$Component) {
         onFilterChanged: this.props.onFilterChanged,
         selection: this.props.options.selection,
         onFilterSelectionChanged: this.props.onFilterSelectionChanged,
-        localization: (0, _objectSpread2.default)({}, MTableBody.defaultProps.localization.filterRow, this.props.localization.filterRow)
+        localization: (0, _objectSpread2.default)({}, MTableBody.defaultProps.localization.filterRow, this.props.localization.filterRow),
+        options: this.props.options
       }), renderData.map(function (data, index) {
         return React.createElement(_this.props.components.Row, {
           components: _this.props.components,

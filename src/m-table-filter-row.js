@@ -100,28 +100,47 @@ class MTableFilterRow extends React.Component {
     let dateInputElement = null;
     const onDateInputChange = date => this.props.onFilterChanged(columnDef.tableData.id, date);
 
+    const commonProps = {
+      keyboard: true,
+      clearable: true,
+      value: columnDef.tableData.filterValue || null,
+      onChange: onDateInputChange,
+    };
+
     if (columnDef.type === 'date') {
       dateInputElement = (
         <DatePicker
-          value={ columnDef.tableData.filterValue || null }
-          onChange={ onDateInputChange }
-          clearable
+          { ...commonProps }
+          format="MM/dd/yyyy"
+          placeholder="MM/DD/YYYY"
+          mask={ value => value
+            ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
+            : []
+          }
         />
       );
     } else if (columnDef.type === 'datetime') {
       dateInputElement = (
         <DateTimePicker
-          value={ columnDef.tableData.filterValue || null }
-          onChange={ onDateInputChange }
-          clearable
+          { ...commonProps }
+          format="MM/dd/yyyy HH:mm"
+          placeholder="MM/DD/YYYY HH:MM"
+          mask={ value => value
+            ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/]
+            : []
+          }
         />
       );
     } else if (columnDef.type === 'time') {
       dateInputElement = (
         <TimePicker
-          value={ columnDef.tableData.filterValue || null }
-          onChange={ onDateInputChange }
-          clearable
+          { ...commonProps }
+          format="HH:mm"
+          placeholder="HH:MM"
+          mask={ value => value
+            ? [/\d/, /\d/, ':', /\d/, /\d/]
+            : []
+          }
         />
       );
     }

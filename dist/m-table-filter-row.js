@@ -9,6 +9,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
 var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
 
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
@@ -147,24 +149,37 @@ function (_React$Component) {
         return _this.props.onFilterChanged(columnDef.tableData.id, date);
       };
 
+      var commonProps = {
+        keyboard: true,
+        clearable: true,
+        value: columnDef.tableData.filterValue || null,
+        onChange: onDateInputChange
+      };
+
       if (columnDef.type === 'date') {
-        dateInputElement = React.createElement(_DatePicker.default, {
-          value: columnDef.tableData.filterValue || null,
-          onChange: onDateInputChange,
-          clearable: true
-        });
+        dateInputElement = React.createElement(_DatePicker.default, (0, _extends2.default)({}, commonProps, {
+          format: "MM/dd/yyyy",
+          placeholder: "MM/DD/YYYY",
+          mask: function mask(value) {
+            return value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : [];
+          }
+        }));
       } else if (columnDef.type === 'datetime') {
-        dateInputElement = React.createElement(_DateTimePicker.default, {
-          value: columnDef.tableData.filterValue || null,
-          onChange: onDateInputChange,
-          clearable: true
-        });
+        dateInputElement = React.createElement(_DateTimePicker.default, (0, _extends2.default)({}, commonProps, {
+          format: "MM/dd/yyyy HH:mm",
+          placeholder: "MM/DD/YYYY HH:MM",
+          mask: function mask(value) {
+            return value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/] : [];
+          }
+        }));
       } else if (columnDef.type === 'time') {
-        dateInputElement = React.createElement(_TimePicker.default, {
-          value: columnDef.tableData.filterValue || null,
-          onChange: onDateInputChange,
-          clearable: true
-        });
+        dateInputElement = React.createElement(_TimePicker.default, (0, _extends2.default)({}, commonProps, {
+          format: "HH:mm",
+          placeholder: "HH:MM",
+          mask: function mask(value) {
+            return value ? [/\d/, /\d/, ':', /\d/, /\d/] : [];
+          }
+        }));
       }
 
       return React.createElement(_MuiPickersUtilsProvider.default, {
@@ -210,7 +225,7 @@ function (_React$Component) {
           style: {
             padding: '0 12px'
           }
-        }, React.createElement(_core.Checkbox, {
+        }, !this.props.options.serverPaging && React.createElement(_core.Checkbox, {
           onChange: this.props.onFilterSelectionChanged
         })));
       }
@@ -258,7 +273,8 @@ MTableFilterRow.propTypes = {
   onFilterSelectionChanged: _propTypes.default.func.isRequired,
   actionsColumnIndex: _propTypes.default.number,
   hasActions: _propTypes.default.bool,
-  localization: _propTypes.default.object
+  localization: _propTypes.default.object,
+  options: _propTypes.default.object.isRequired
 };
 var _default = MTableFilterRow;
 exports.default = _default;

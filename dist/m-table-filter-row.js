@@ -80,9 +80,6 @@ function (_React$Component) {
         onChange: function onChange(event) {
           _this.props.onFilterChanged(columnDef.tableData.id, event.target.value);
         },
-        input: React.createElement(_core.Input, {
-          id: "select-multiple-checkbox"
-        }),
         renderValue: function renderValue(selecteds) {
           return selecteds.map(function (selected) {
             return columnDef.lookup[selected];
@@ -90,11 +87,12 @@ function (_React$Component) {
         },
         MenuProps: MenuProps
       }, Object.keys(columnDef.lookup).map(function (key) {
+        var v = !!columnDef.tableData.filterValue && columnDef.tableData.filterValue.indexOf(key.toString()) > -1;
         return React.createElement(_core.MenuItem, {
           key: key,
           value: key
         }, React.createElement(_core.Checkbox, {
-          checked: columnDef.tableData.filterValue && columnDef.tableData.filterValue.indexOf(key.toString()) > -1
+          checked: v
         }), React.createElement(_core.ListItemText, {
           primary: columnDef.lookup[key]
         }));
@@ -208,6 +206,7 @@ function (_React$Component) {
 
       if (this.props.selection) {
         columns.splice(0, 0, React.createElement(_core.TableCell, {
+          key: "key-filterRow-selection",
           style: {
             padding: '0 12px'
           }
@@ -218,7 +217,9 @@ function (_React$Component) {
 
       if (this.props.emptyCell && this.props.hasActions) {
         if (this.props.actionsColumnIndex === -1) {
-          columns.push(React.createElement(_core.TableCell, null));
+          columns.push(React.createElement(_core.TableCell, {
+            key: "key-filterRow-action"
+          }));
         } else {
           var endPos = 0;
 

@@ -144,7 +144,7 @@ function (_React$Component) {
 
       if (columnDef.type === 'date') {
         dateInputElement = React.createElement(_materialUiPickers.DatePicker, (0, _extends2.default)({}, commonProps, {
-          format: "MM/dd/yyyy",
+          format: "MM/DD/YYYY",
           placeholder: "MM/DD/YYYY",
           mask: function mask(value) {
             return value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : [];
@@ -152,7 +152,7 @@ function (_React$Component) {
         }));
       } else if (columnDef.type === 'datetime') {
         dateInputElement = React.createElement(_materialUiPickers.DateTimePicker, (0, _extends2.default)({}, commonProps, {
-          format: "MM/dd/yyyy HH:mm",
+          format: "MM/DD/YYYY HH:mm",
           placeholder: "MM/DD/YYYY HH:MM",
           mask: function mask(value) {
             return value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/] : [];

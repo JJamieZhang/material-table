@@ -98,7 +98,7 @@ class MTableFilterRow extends React.Component {
       dateInputElement = (
         <DatePicker
           { ...commonProps }
-          format="MM/dd/yyyy"
+          format="MM/DD/YYYY"
           placeholder="MM/DD/YYYY"
           mask={ value => value
             ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
@@ -110,7 +110,7 @@ class MTableFilterRow extends React.Component {
       dateInputElement = (
         <DateTimePicker
           { ...commonProps }
-          format="MM/dd/yyyy HH:mm"
+          format="MM/DD/YYYY HH:mm"
           placeholder="MM/DD/YYYY HH:MM"
           mask={ value => value
             ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/]

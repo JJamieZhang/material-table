@@ -3,15 +3,11 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import {
   TableCell, TableRow, TextField,
-  FormControl, Select, Input,
+  FormControl, Select,
   MenuItem, Checkbox, ListItemText,
-  InputAdornment, Icon, Tooltip,
 } from '@material-ui/core';
-import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
-import TimePicker from 'material-ui-pickers/TimePicker';
-import DatePicker from 'material-ui-pickers/DatePicker';
-import DateTimePicker from 'material-ui-pickers/DateTimePicker';
+import MomentUtils from '@date-io/moment';
+import { MuiPickersUtilsProvider, TimePicker, DatePicker, DateTimePicker } from 'material-ui-pickers';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -137,7 +133,7 @@ class MTableFilterRow extends React.Component {
     }
 
     return (
-      <MuiPickersUtilsProvider utils={ DateFnsUtils }>
+      <MuiPickersUtilsProvider utils={ MomentUtils }>
         { dateInputElement }
       </MuiPickersUtilsProvider>
     );

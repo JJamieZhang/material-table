@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Icon, Paper, Table, TableFooter, TablePagination, TableRow } from '@material-ui/core';
-import formatDate from 'date-fns/format';
+import * as moment from 'moment';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import MTableActions from './m-table-actions';
@@ -117,11 +117,13 @@ class MaterialTable extends React.Component {
               let selectedDateToCompare = '';
 
               if (type === 'date') {
-                currentDateToCompare = formatDate(currentDate, 'MM/dd/yyyy');
-                selectedDateToCompare = formatDate(selectedDate, 'MM/dd/yyyy');
+                const dateFormat = 'MM/dd/yyyy';
+                currentDateToCompare = moment(currentDate).format(dateFormat);
+                selectedDateToCompare = moment(selectedDate).format(dateFormat);
               } else if (type === 'datetime') {
-                currentDateToCompare = formatDate(currentDate, 'MM/dd/yyyy - HH:mm');
-                selectedDateToCompare = formatDate(selectedDate, 'MM/dd/yyyy - HH:mm');
+                const datetimeFormat = 'MM/dd/yyyy - HH:mm';
+                currentDateToCompare = moment(currentDate).format(datetimeFormat);
+                selectedDateToCompare = moment(selectedDate).format(datetimeFormat);
               }
 
               return currentDateToCompare === selectedDateToCompare;
@@ -135,7 +137,7 @@ class MaterialTable extends React.Component {
 
             if (currentHour) {
               const selectedHour = tableData.filterValue;
-              const currentHourToCompare = formatDate(selectedHour, 'HH:mm');
+              const currentHourToCompare = moment(selectedHour).format('HH:mm');
 
               return currentHour === currentHourToCompare;
             }

@@ -10,8 +10,18 @@ class App extends Component {
           columns={ [
             { title: 'Adı', field: 'name', className: 'test' },
             { title: 'Soyadı', field: 'surname', },
-            { title: 'Doğum Yılı', field: 'birthYear', type: 'boolean' },
-            { title: 'Doğum Yeri', field: 'birthCity', lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' } }
+            { title: 'Doğum Yılı', field: 'birthYear', type: 'datetime' },
+            {
+              title: 'Doğum Yeri', field: 'birthCity', lookup: {
+                34: 'İstanbul',
+                63: 'Şanlıurfa',
+                1: 'Şanlıurfa',
+                6: 'Şanlıurfa',
+                7: 'Şanlıurfa',
+                8: 'Şanlıurfa',
+                9: 'Şanlıurfa',
+              }
+            }
           ] }
           data={ [
             { name: 'Nick', surname: 'Hands', birthYear: 1987, birthCity: 63 },

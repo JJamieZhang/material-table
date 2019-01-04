@@ -48,13 +48,18 @@ function (_Component) {
         }, {
           title: 'Doğum Yılı',
           field: 'birthYear',
-          type: 'boolean'
+          type: 'datetime'
         }, {
           title: 'Doğum Yeri',
           field: 'birthCity',
           lookup: {
             34: 'İstanbul',
-            63: 'Şanlıurfa'
+            63: 'Şanlıurfa',
+            1: 'Şanlıurfa',
+            6: 'Şanlıurfa',
+            7: 'Şanlıurfa',
+            8: 'Şanlıurfa',
+            9: 'Şanlıurfa'
           }
         }],
         data: [{
@@ -65,6 +70,56 @@ function (_Component) {
         }, {
           name: 'Peter',
           surname: 'Jameskey',
+          birthYear: 1987,
+          birthCity: 63
+        }, {
+          name: 'Joe',
+          surname: 'Baran',
+          birthYear: 1987,
+          birthCity: 63
+        }, {
+          name: 'Joe',
+          surname: 'Baran',
+          birthYear: 1987,
+          birthCity: 63
+        }, {
+          name: 'Joe',
+          surname: 'Baran',
+          birthYear: 1987,
+          birthCity: 63
+        }, {
+          name: 'Joe',
+          surname: 'Baran',
+          birthYear: 1987,
+          birthCity: 63
+        }, {
+          name: 'Joe',
+          surname: 'Baran',
+          birthYear: 1987,
+          birthCity: 63
+        }, {
+          name: 'Joe',
+          surname: 'Baran',
+          birthYear: 1987,
+          birthCity: 63
+        }, {
+          name: 'Joe',
+          surname: 'Baran',
+          birthYear: 1987,
+          birthCity: 63
+        }, {
+          name: 'Joe',
+          surname: 'Baran',
+          birthYear: 1987,
+          birthCity: 63
+        }, {
+          name: 'Joe',
+          surname: 'Baran',
+          birthYear: 1987,
+          birthCity: 63
+        }, {
+          name: 'Joe',
+          surname: 'Baran',
           birthYear: 1987,
           birthCity: 63
         }, {

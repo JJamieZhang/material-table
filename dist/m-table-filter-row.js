@@ -33,15 +33,9 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _core = require("@material-ui/core");
 
-var _dateFnsUtils = _interopRequireDefault(require("material-ui-pickers/utils/date-fns-utils"));
+var _moment = _interopRequireDefault(require("@date-io/moment"));
 
-var _MuiPickersUtilsProvider = _interopRequireDefault(require("material-ui-pickers/MuiPickersUtilsProvider"));
-
-var _TimePicker = _interopRequireDefault(require("material-ui-pickers/TimePicker"));
-
-var _DatePicker = _interopRequireDefault(require("material-ui-pickers/DatePicker"));
-
-var _DateTimePicker = _interopRequireDefault(require("material-ui-pickers/DateTimePicker"));
+var _materialUiPickers = require("material-ui-pickers");
 
 /* eslint-disable no-unused-vars */
 var ITEM_HEIGHT = 48;
@@ -149,7 +143,7 @@ function (_React$Component) {
       };
 
       if (columnDef.type === 'date') {
-        dateInputElement = React.createElement(_DatePicker.default, (0, _extends2.default)({}, commonProps, {
+        dateInputElement = React.createElement(_materialUiPickers.DatePicker, (0, _extends2.default)({}, commonProps, {
           format: "MM/dd/yyyy",
           placeholder: "MM/DD/YYYY",
           mask: function mask(value) {
@@ -157,7 +151,7 @@ function (_React$Component) {
           }
         }));
       } else if (columnDef.type === 'datetime') {
-        dateInputElement = React.createElement(_DateTimePicker.default, (0, _extends2.default)({}, commonProps, {
+        dateInputElement = React.createElement(_materialUiPickers.DateTimePicker, (0, _extends2.default)({}, commonProps, {
           format: "MM/dd/yyyy HH:mm",
           placeholder: "MM/DD/YYYY HH:MM",
           mask: function mask(value) {
@@ -165,7 +159,7 @@ function (_React$Component) {
           }
         }));
       } else if (columnDef.type === 'time') {
-        dateInputElement = React.createElement(_TimePicker.default, (0, _extends2.default)({}, commonProps, {
+        dateInputElement = React.createElement(_materialUiPickers.TimePicker, (0, _extends2.default)({}, commonProps, {
           format: "HH:mm",
           placeholder: "HH:MM",
           mask: function mask(value) {
@@ -174,8 +168,8 @@ function (_React$Component) {
         }));
       }
 
-      return React.createElement(_MuiPickersUtilsProvider.default, {
-        utils: _dateFnsUtils.default
+      return React.createElement(_materialUiPickers.MuiPickersUtilsProvider, {
+        utils: _moment.default
       }, dateInputElement);
     });
     return _this;

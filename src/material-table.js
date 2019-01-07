@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Icon, Paper, Table, TableFooter, TablePagination, TableRow } from '@material-ui/core';
-import * as moment from 'moment';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import MTableActions from './m-table-actions';

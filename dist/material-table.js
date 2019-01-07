@@ -79,7 +79,7 @@ var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/de
 
 var _core = require("@material-ui/core");
 
-var moment = _interopRequireWildcard(require("moment"));
+var _moment = _interopRequireDefault(require("moment"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -156,12 +156,12 @@ function (_React$Component) {
 
                 if (type === 'date') {
                   var dateFormat = 'MM/dd/yyyy';
-                  currentDateToCompare = moment(currentDate).format(dateFormat);
-                  selectedDateToCompare = moment(selectedDate).format(dateFormat);
+                  currentDateToCompare = (0, _moment.default)(currentDate).format(dateFormat);
+                  selectedDateToCompare = (0, _moment.default)(selectedDate).format(dateFormat);
                 } else if (type === 'datetime') {
                   var datetimeFormat = 'MM/dd/yyyy - HH:mm';
-                  currentDateToCompare = moment(currentDate).format(datetimeFormat);
-                  selectedDateToCompare = moment(selectedDate).format(datetimeFormat);
+                  currentDateToCompare = (0, _moment.default)(currentDate).format(datetimeFormat);
+                  selectedDateToCompare = (0, _moment.default)(selectedDate).format(datetimeFormat);
                 }
 
                 return currentDateToCompare === selectedDateToCompare;
@@ -175,7 +175,7 @@ function (_React$Component) {
 
               if (currentHour) {
                 var selectedHour = tableData.filterValue;
-                var currentHourToCompare = moment(selectedHour).format('HH:mm');
+                var currentHourToCompare = (0, _moment.default)(selectedHour).format('HH:mm');
                 return currentHour === currentHourToCompare;
               }
 

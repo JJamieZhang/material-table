@@ -426,6 +426,7 @@ function (_React$Component) {
           return a.tableData.checked;
         }) : [],
         columns: this.state.columns,
+        toggleFilter: props.options.filtering && props.options.toggleFilter,
         columnsButton: props.options.columnsButton,
         icons: props.icons,
         exportButton: props.options.exportButton,
@@ -434,6 +435,11 @@ function (_React$Component) {
         search: props.options.search,
         searchText: this.state.searchText,
         title: props.title,
+        onToggleFilter: function onToggleFilter() {
+          return _this3.setState({
+            showFilter: !_this3.state.showFilter
+          });
+        },
         onSearchChanged: function onSearchChanged(searchText) {
           return _this3.setState({
             searchText: searchText
@@ -512,7 +518,9 @@ function (_React$Component) {
         currentPage: this.props.options.serverPaging ? this.props.options.serverPaging.page : this.state.currentPage,
         pageSize: this.props.options.serverPaging ? this.props.options.serverPaging.pageSize : this.state.pageSize,
         columns: this.state.columns,
-        options: props.options,
+        options: (0, _objectSpread2.default)({}, props.options, {
+          filtering: props.options.filtering && (!props.options.toggleFilter || this.state.showFilter)
+        }),
         getFieldValue: this.getFieldValue,
         onFilterChanged: function onFilterChanged(columnId, value) {
           var columns = _this3.state.columns;
@@ -626,6 +634,7 @@ MaterialTable.defaultProps = {
     exportButton: false,
     exportDelimiter: ',',
     filtering: false,
+    toggleFilter: true,
     paging: true,
     pageSize: 5,
     pageSizeOptions: [5, 10, 20],
@@ -710,6 +719,7 @@ MaterialTable.propTypes = {
     exportButton: _propTypes.default.bool,
     exportDelimiter: _propTypes.default.string,
     filtering: _propTypes.default.bool,
+    toggleFilter: _propTypes.default.bool,
     paging: _propTypes.default.bool,
     pageSize: _propTypes.default.number,
     pageSizeOptions: _propTypes.default.arrayOf(_propTypes.default.number),

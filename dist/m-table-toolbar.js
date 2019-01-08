@@ -113,7 +113,15 @@ function (_React$Component) {
       var _this3 = this;
 
       var localization = (0, _objectSpread2.default)({}, MTableToolbar.defaultProps.localization, this.props.localization);
-      return React.createElement("div", null, this.renderSearch(), this.props.columnsButton && React.createElement("span", null, React.createElement(_core.Tooltip, {
+      return React.createElement("div", null, this.renderSearch(), this.props.toggleFilter && React.createElement("span", null, React.createElement(_core.Tooltip, {
+        title: localization.toggleFilter
+      }, React.createElement(_core.IconButton, {
+        color: "inherit",
+        onClick: function onClick() {
+          return _this3.props.onToggleFilter();
+        },
+        "aria-label": localization.toggleFilterAriaLabel
+      }, React.createElement(this.props.icons.Filter, null)))), this.props.columnsButton && React.createElement("span", null, React.createElement(_core.Tooltip, {
         title: localization.showColumnsTitle
       }, React.createElement(_core.IconButton, {
         color: "inherit",
@@ -193,7 +201,7 @@ function (_React$Component) {
     value: function render() {
       var classes = this.props.classes;
       var localization = (0, _objectSpread2.default)({}, MTableToolbar.defaultProps.localization, this.props.localization);
-      var title = this.props.selectedRows && this.props.selectedRows.length > 0 ? localization.nRowsSelected.replace('{0}', this.props.selectedRows.length) : this.props.title;
+      var title = this.props.selectedRows && this.props.selectedRows.length > 0 ? localization.nRowsSelected.replace('{ 0 }', this.props.selectedRows.length) : this.props.title;
       return React.createElement(_core.Toolbar, {
         className: (0, _classnames.default)(classes.root, (0, _defineProperty2.default)({}, classes.highlight, this.props.selectedRows && this.props.selectedRows.length > 0))
       }, React.createElement("div", {
@@ -215,13 +223,15 @@ MTableToolbar.defaultProps = {
   columns: [],
   columnsButton: false,
   localization: {
-    nRowsSelected: '{0} row(s) selected',
+    nRowsSelected: '{ 0 } row(s) selected',
     showColumnsTitle: 'Show Columns',
     showColumnsAriaLabel: 'Show Columns',
     exportTitle: 'Export',
     exportAriaLabel: 'Export',
     exportName: 'Export as CSV',
-    searchTooltip: 'Search'
+    searchTooltip: 'Search',
+    toggleFilter: 'Toggle Filter',
+    toggleFilterAriaLabel: 'Toggle Filter'
   },
   search: true,
   searchText: '',
@@ -242,7 +252,9 @@ MTableToolbar.propTypes = {
   renderData: _propTypes.default.array,
   exportButton: _propTypes.default.bool,
   exportDelimiter: _propTypes.default.string,
-  classes: _propTypes.default.object
+  classes: _propTypes.default.object,
+  toggleFilter: _propTypes.default.bool.isRequired,
+  onToggleFilter: _propTypes.default.func.isRequired
 };
 
 var styles = function styles(theme) {

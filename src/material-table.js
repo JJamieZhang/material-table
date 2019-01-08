@@ -284,6 +284,7 @@ class MaterialTable extends React.Component {
             components={ props.components }
             selectedRows={ this.state.selectedCount > 0 ? this.state.data.filter(a => { return a.tableData.checked }) : [] }
             columns={ this.state.columns }
+            toggleFilter={ props.options.filtering && props.options.toggleFilter }
             columnsButton={ props.options.columnsButton }
             icons={ props.icons }
             exportButton={ props.options.exportButton }
@@ -292,6 +293,7 @@ class MaterialTable extends React.Component {
             search={ props.options.search }
             searchText={ this.state.searchText }
             title={ props.title }
+            onToggleFilter={ () => this.setState({ showFilter: !this.state.showFilter }) }
             onSearchChanged={ searchText => this.setState({ searchText }, () => this.setData()) }
             onColumnsChanged={ columns => this.setState({ columns }) }
             localization={ { ...MaterialTable.defaultProps.localization.toolbar, ...this.props.localization.toolbar } }
@@ -340,7 +342,10 @@ class MaterialTable extends React.Component {
               currentPage={ this.props.options.serverPaging ? this.props.options.serverPaging.page : this.state.currentPage }
               pageSize={ this.props.options.serverPaging ? this.props.options.serverPaging.pageSize : this.state.pageSize }
               columns={ this.state.columns }
-              options={ props.options }
+              options={ {
+                ...props.options,
+                filtering: props.options.filtering && (!props.options.toggleFilter || this.state.showFilter)
+              } }
               getFieldValue={ this.getFieldValue }
               onFilterChanged={ (columnId, value) => {
                 const columns = this.state.columns;
@@ -419,6 +424,7 @@ MaterialTable.defaultProps = {
     exportButton: false,
     exportDelimiter: ',',
     filtering: false,
+    toggleFilter: true,
     paging: true,
     pageSize: 5,
     pageSizeOptions: [5, 10, 20],
@@ -504,6 +510,7 @@ MaterialTable.propTypes = {
     exportButton: PropTypes.bool,
     exportDelimiter: PropTypes.string,
     filtering: PropTypes.bool,
+    toggleFilter: PropTypes.bool,
     paging: PropTypes.bool,
     pageSize: PropTypes.number,
     pageSizeOptions: PropTypes.arrayOf(PropTypes.number),

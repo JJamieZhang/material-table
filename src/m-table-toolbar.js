@@ -66,6 +66,19 @@ class MTableToolbar extends React.Component {
     return (
       <div>
         { this.renderSearch() }
+        {
+          this.props.toggleFilter &&
+          <span>
+            <Tooltip title={ localization.toggleFilter }>
+              <IconButton
+                color="inherit"
+                onClick={ () => this.props.onToggleFilter() }
+                aria-label={ localization.toggleFilterAriaLabel }>
+                <this.props.icons.Filter />
+              </IconButton>
+            </Tooltip>
+          </span>
+        }
         { this.props.columnsButton &&
           <span>
             <Tooltip title={ localization.showColumnsTitle }>
@@ -73,7 +86,6 @@ class MTableToolbar extends React.Component {
                 color="inherit"
                 onClick={ event => this.setState({ columnsButtonAnchorEl: event.currentTarget }) }
                 aria-label={ localization.showColumnsAriaLabel }>
-
                 <this.props.icons.ViewColumn />
               </IconButton>
             </Tooltip>
@@ -152,7 +164,7 @@ class MTableToolbar extends React.Component {
   render() {
     const { classes } = this.props;
     const localization = { ...MTableToolbar.defaultProps.localization, ...this.props.localization };
-    const title = this.props.selectedRows && this.props.selectedRows.length > 0 ? localization.nRowsSelected.replace('{0}', this.props.selectedRows.length) : this.props.title;
+    const title = this.props.selectedRows && this.props.selectedRows.length > 0 ? localization.nRowsSelected.replace('{ 0 }', this.props.selectedRows.length) : this.props.title;
     return (
       <Toolbar className={ classNames(classes.root, { [classes.highlight]: this.props.selectedRows && this.props.selectedRows.length > 0 }) }>
         <div className={ classes.title }>
@@ -172,13 +184,15 @@ MTableToolbar.defaultProps = {
   columns: [],
   columnsButton: false,
   localization: {
-    nRowsSelected: '{0} row(s) selected',
+    nRowsSelected: '{ 0 } row(s) selected',
     showColumnsTitle: 'Show Columns',
     showColumnsAriaLabel: 'Show Columns',
     exportTitle: 'Export',
     exportAriaLabel: 'Export',
     exportName: 'Export as CSV',
-    searchTooltip: 'Search'
+    searchTooltip: 'Search',
+    toggleFilter: 'Toggle Filter',
+    toggleFilterAriaLabel: 'Toggle Filter'
   },
   search: true,
   searchText: '',
@@ -200,7 +214,9 @@ MTableToolbar.propTypes = {
   renderData: PropTypes.array,
   exportButton: PropTypes.bool,
   exportDelimiter: PropTypes.string,
-  classes: PropTypes.object
+  classes: PropTypes.object,
+  toggleFilter: PropTypes.bool.isRequired,
+  onToggleFilter: PropTypes.func.isRequired,
 };
 
 const styles = theme => ({

@@ -256,10 +256,10 @@ function (_React$Component) {
     var defaultSortDirection = '';
 
     if (calculatedProps) {
-      var defaultColumn = calculatedProps.columns.find(function (a) {
+      defaultSortField = calculatedProps.columns.findIndex(function (a) {
         return a.defaultSort;
       });
-      defaultSortDirection = defaultColumn ? defaultColumn.defaultSort : '';
+      defaultSortDirection = defaultSortField > -1 ? calculatedProps.columns[defaultSortField].defaultSort : '';
     }
 
     _this.state = (0, _objectSpread2.default)({

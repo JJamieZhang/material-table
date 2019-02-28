@@ -22,8 +22,7 @@ class MaterialTable extends React.Component {
     let defaultSortDirection = '';
     if (calculatedProps) {
       const defaultColumn = calculatedProps.columns.find(a => a.defaultSort);
-      defaultSortField = defaultColumn ? defaultColumn.field : undefined;
-      defaultSortDirection = defaultSortField ? calculatedProps.columns[defaultSortField].defaultSort : '';
+      defaultSortDirection = defaultColumn ? defaultColumn.defaultSort : '';
     }
     this.state = {
       columns: [],

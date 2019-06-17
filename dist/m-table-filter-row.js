@@ -27,15 +27,15 @@ var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/hel
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
-var React = _interopRequireWildcard(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
+var _moment = _interopRequireDefault(require("@date-io/moment"));
 
 var _core = require("@material-ui/core");
 
-var _moment = _interopRequireDefault(require("@date-io/moment"));
+var _pickers = require("@material-ui/pickers");
 
-var _materialUiPickers = require("material-ui-pickers");
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var React = _interopRequireWildcard(require("react"));
 
 /* eslint-disable no-unused-vars */
 var ITEM_HEIGHT = 48;
@@ -136,39 +136,29 @@ function (_React$Component) {
       };
 
       var commonProps = {
-        keyboard: true,
         clearable: true,
         value: columnDef.tableData.filterValue || null,
         onChange: onDateInputChange
       };
 
       if (columnDef.type === 'date') {
-        dateInputElement = React.createElement(_materialUiPickers.DatePicker, (0, _extends2.default)({}, commonProps, {
+        dateInputElement = React.createElement(_pickers.KeyboardDatePicker, (0, _extends2.default)({}, commonProps, {
           format: "MM/DD/YYYY",
-          placeholder: "MM/DD/YYYY",
-          mask: function mask(value) {
-            return value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : [];
-          }
+          placeholder: "MM/DD/YYYY"
         }));
       } else if (columnDef.type === 'datetime') {
-        dateInputElement = React.createElement(_materialUiPickers.DateTimePicker, (0, _extends2.default)({}, commonProps, {
+        dateInputElement = React.createElement(_pickers.KeyboardDatePicker, (0, _extends2.default)({}, commonProps, {
           format: "MM/DD/YYYY HH:mm",
-          placeholder: "MM/DD/YYYY HH:MM",
-          mask: function mask(value) {
-            return value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/] : [];
-          }
+          placeholder: "MM/DD/YYYY HH:MM"
         }));
       } else if (columnDef.type === 'time') {
-        dateInputElement = React.createElement(_materialUiPickers.TimePicker, (0, _extends2.default)({}, commonProps, {
+        dateInputElement = React.createElement(_pickers.KeyboardTimePicker, (0, _extends2.default)({}, commonProps, {
           format: "HH:mm",
-          placeholder: "HH:MM",
-          mask: function mask(value) {
-            return value ? [/\d/, /\d/, ':', /\d/, /\d/] : [];
-          }
+          placeholder: "HH:MM"
         }));
       }
 
-      return React.createElement(_materialUiPickers.MuiPickersUtilsProvider, {
+      return React.createElement(_pickers.MuiPickersUtilsProvider, {
         utils: _moment.default
       }, dateInputElement);
     });

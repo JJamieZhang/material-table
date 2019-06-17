@@ -1,13 +1,9 @@
 /* eslint-disable no-unused-vars */
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import {
-  TableCell, TableRow, TextField,
-  FormControl, Select,
-  MenuItem, Checkbox, ListItemText,
-} from '@material-ui/core';
 import MomentUtils from '@date-io/moment';
-import { MuiPickersUtilsProvider, TimePicker, DatePicker, DateTimePicker } from 'material-ui-pickers';
+import { Checkbox, FormControl, ListItemText, MenuItem, Select, TableCell, TableRow, TextField } from '@material-ui/core';
+import { KeyboardDatePicker, KeyboardTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import PropTypes from 'prop-types';
+import * as React from 'react';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -88,7 +84,6 @@ class MTableFilterRow extends React.Component {
     const onDateInputChange = date => this.props.onFilterChanged(columnDef.tableData.id, date);
 
     const commonProps = {
-      keyboard: true,
       clearable: true,
       value: columnDef.tableData.filterValue || null,
       onChange: onDateInputChange,
@@ -96,38 +91,26 @@ class MTableFilterRow extends React.Component {
 
     if (columnDef.type === 'date') {
       dateInputElement = (
-        <DatePicker
+        <KeyboardDatePicker
           { ...commonProps }
           format="MM/DD/YYYY"
           placeholder="MM/DD/YYYY"
-          mask={ value => value
-            ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
-            : []
-          }
         />
       );
     } else if (columnDef.type === 'datetime') {
       dateInputElement = (
-        <DateTimePicker
+        <KeyboardDatePicker
           { ...commonProps }
           format="MM/DD/YYYY HH:mm"
           placeholder="MM/DD/YYYY HH:MM"
-          mask={ value => value
-            ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/]
-            : []
-          }
         />
       );
     } else if (columnDef.type === 'time') {
       dateInputElement = (
-        <TimePicker
+        <KeyboardTimePicker
           { ...commonProps }
           format="HH:mm"
           placeholder="HH:MM"
-          mask={ value => value
-            ? [/\d/, /\d/, ':', /\d/, /\d/]
-            : []
-          }
         />
       );
     }

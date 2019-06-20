@@ -260,7 +260,7 @@ MTableToolbar.propTypes = {
 var styles = function styles(theme) {
   return {
     root: {
-      paddingRight: theme.spacing.unit
+      paddingRight: theme.spacing(1)
     },
     highlight: theme.palette.type === 'light' ? {
       color: theme.palette.secondary.main,

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Icon, IconButton, withStyles, Tooltip } from '@material-ui/core';
+import { IconButton, Tooltip, withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 /* eslint-enable no-unused-vars */
@@ -84,7 +84,7 @@ const actionsStyles = theme => ({
   root: {
     flexShrink: 0,
     color: theme.palette.text.secondary,
-    marginLeft: theme.spacing.unit * 2.5
+    marginLeft: theme.spacing(2.5)
   }
 });
 
